@@ -1,0 +1,78 @@
+// I know this is a lot but I'm hoping you guys can take the time to read this and get 'git' setup on your machines(thats the easy part) so we can all  
+// have easy access to the files and images we will be using.  
+// We can go through this step by step via voice chat if you need but the initial setup is faily straight forward.
+// Git is a version control system.  This will allow us to all work on the same files and have a version saved on our local machines.
+// This write up will explain how to install, setup and use git to track local projects and to push changes to a centralized github
+// repo as well as how to pull the most recent version from the github repo.
+
+// Install Git
+// 1. Go to www.git-scm.com
+// 2. Click download
+// 3. Choose the version for your operating system
+// 4. Follow the installation prompt
+
+// First time setup
+// 1. Open the command prompt
+//      - To do this use the (windows key + r) to open the run box
+//      - Type 'cmd' and hit enter
+//      - Command prompt should be open at this point
+// 2. Check if the installation was successful
+//      - Type 'git --version' and hit enter
+//      - If a cryptic error message pops up something went wrong with the install
+//      - If the output shows 'git version' followed by a version number than everything is good
+// 3. Setup Config Values
+//      - In the same command prompt window type 'git config --global user.name "<name>"' but replace <name> with your name and hit enter
+//      - After that type 'git config --global user.email "<email>"' but replace <email> with your email address and hit enter
+//      - To confirm everything worked type 'git config --list' and make sure you see your name and email in the list of Values
+//      - If at anytime you need help with a command type the command followed by --help for info about the commands
+
+// Cloning a remote repo from github
+// 1. To clone a github repo we can open the command prompt and type 'git clone <url> <where to clone>' where <url> is the url of the github repo and <where to clone> is the directory you wish to clone the repo into.
+// 2. Example:
+//      - 'git clone https://www.github.com/rowdie727/TestSite.git Desktop\New_folder'
+//      - This command will clone the github repo found at the url to a folder on my desktop named New_folder
+
+// Initialize a new directory to be tracked by git
+// 1. Open the command prompt
+// 2. Navigate to the directory you want to track
+//      - To do this use the 'cd' command followed by the path of the directory
+// 3. Initialize the directory with git
+//      - To do this type 'git init' inside the project directory and hit enter
+// 4. Confirm the initialization was successful
+//      - To do this type 'dir' and hit enter
+//      - The dir command lists all the content of the current directory
+//      - If you see a file named .git in the directory the initialization was successful
+// 5. If you need to stop tracking a directory:
+//      - To stop tracking a directory we just need to delete the .git file 
+//      - We can do this in the command prompt by navigating to the directory and then typing 'rm -rf .git'
+
+// Check status of project
+// 1. Open the command prompt, navigate to the project directory
+// 2. Type 'git status' and hit enter
+// 3. This will display the files being tracked by git as well as any changes that have been made to them since the last commit
+
+// Tell git to ignore certain files in the tracked directory
+// 1. Open the command prompt, navigate to the project directory
+// 2. We need to create a file named ".gitignore"
+// 3. To do this type 'echo > .gitignore' and hit enter
+// 4. This file is just a text file but if the name of any file in our directory is in this file then git will ignore init
+// 5. To add the name of a file to .gitignore you can open it up in notepad and type it in or to use the command prompt you can type:
+//      - 'echo "<filename>" >> .gitignore' but replace <filename> with the name of the file you want append(>>) to the .gitignore file
+//      - NOTE: Using the > will overwrite to a file, using >> will append to a file
+// 6. We can also use wildcards(*) in this file
+//      - For example 'echo "*.txt" >> .gitignore' will append the name of any files in the current directory ending in .txt to the .gitignore file
+
+// Add files to the staging area
+// 1. Open the command prompt, navigate to the project directory
+// 2. We can add all tracked files to the staging area by typing 'git add -A'
+// 3. If we type 'git status' we can see these files are now in staging area(in green text)
+// 4. We can add individual tracked files to the staging area by typing 'git add <filename>' but replace <filename> with the actual name of the file
+//    that you want to add to the staging area
+// 5. We can undo these operations by using the 'git reset <filename>' command where filename is the name of the file you want to remove from the staging
+//    area(we can run 'git reset' by itself to remove all files from the staging area)
+
+// Commit changes to the repo
+// 1. To make a commit we first need to Add the files we want to commit to the staging area
+// 2. Then we can type 'git commit -m "<Commit message>"' where <Commit message> is a message describing what changes you've made
+// 3. 'git status' should now show "Nothing to commit, working directory clean"
+// 4. We can type 'git log' to show a log of all the commits that have been made

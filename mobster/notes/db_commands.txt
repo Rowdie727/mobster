@@ -1,0 +1,72 @@
+// Commands to interact with database 
+
+// Create Database
+db.create_all()
+
+// Add User
+db.session.add(<user object>)
+
+// Commit changes
+db.session.commit()
+
+// Make queries
+// Queries will return a list of objects if there are more than 1
+// All 
+<table>.query.all()
+
+// First
+<table>.query.first()
+
+// Get(gets the user id with the number passed to it)
+<table>.query.get(1) <-- This will get the user with id=1
+
+// Filter by
+<table>.query.filter_by(username='Chris').all()
+<table>.query.filter_by(username='Chris').first()
+
+// Examples
+user = User.query.filter_by(username='Chris').first()
+print(user) --> User('Chris', 'test@mail.com', 'default.jpg')
+
+// Access members of a user
+user = User.query.filter_by(username='Chris').first()
+print(user.email)       --> test@mail.com
+print(user.id)          --> 1
+print(user.username)    --> Chris
+
+// Access user posts
+user = User.query.filter_by(username='Chris').first()
+user.posts --> []  <-- returns empty list because there are no posts yet
+
+// Create posts
+new_post = Post(title='Post title', content='Post content', user_id=user.id)
+
+// Add post to Database
+db.session.add(new_post)
+
+// Commit changes
+db.session.commit()
+
+// Accessing the posts again
+user.posts --> [Post('Post title', 2021-10-28 2-:28:51.240125)] <-- returns a list of posts by this user
+
+// Query for all posts
+post = Post.query.all()
+
+// Loop over posts
+for post in user.posts:
+    print(post.title) --> prints the title of all current posts
+
+// Get user id of a post
+print(post.user_id) --> 1
+
+// Get author of a post
+print(post.author) --> User('Chris', 'test@mail.com', 'default.jpg')
+
+// Get authors username
+print(post.author.username) --> 'Chris'
+
+// DELETE ALL(Dont do this please)
+db.drop_all()
+
+
