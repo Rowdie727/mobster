@@ -23,25 +23,6 @@ test_posts = [
 def index():
     return render_template('index.html', test_posts=test_posts, title='Home')
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    # If logged in
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-
-    form = LoginForm()
-    # Validate login
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            next_page = request.args.get('next')
-            flash('You have been logged in', 'danger')
-            return redirect(next_page) if next_page else redirect(url_for('index'))
-        else:
-            flash('Login unsuccessful, please check username and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     # If logged in
@@ -62,6 +43,25 @@ def register():
         return redirect(url_for('login'))
         
     return render_template('register.html', title='Register', form=form)
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    # If logged in
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = LoginForm()
+    # Validate login
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            flash('You have been logged in', 'danger')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
+        else:
+            flash('Login unsuccessful, please check username and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
 def logout():

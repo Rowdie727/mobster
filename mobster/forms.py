@@ -8,15 +8,15 @@ class RegistrationForm(FlaskForm):
     email = StringField('E-Mail', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField = SubmitField('Sign up!')
+    submit = SubmitField('Sign up!')
 
     def validate_username(self, username):
-        user = user.query.filter_by(username=username.data).first()
+        user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('That username is already taken, please choose another!')
 
     def validate_email(self, email):
-        email = email.query.filter_by(email=email.data).first()
+        email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('That E-mail is already has an associated account!')
 
@@ -25,5 +25,5 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me?')
-    submit = SubmitField = SubmitField('Log in!')
+    submit = SubmitField('Log in!')
     
