@@ -1,6 +1,9 @@
+import os
+import secrets
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from mobster import app, db, bcrypt
-from mobster.forms import RegistrationForm, LoginForm
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from mobster.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -68,7 +71,35 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route("/account")
+def save_user_img(form_user_img):
+    # Hash img file
+    random_hex = secrets.token_hex(8)
+    file_name, file_ext = os.path.splitext(form_user_img.filename)
+    img_filename = random_hex + file_ext
+    images_path = os.path.join(app.root_path, 'static\images', img_filename)
+    # Resize img file
+    output_size = (125,125)
+    new_img = Image.open(form_user_img)
+    new_img.thumbnail(output_size)
+    new_img.save(images_path)
+    return img_filename
+
+
+@app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.user_img.data:
+            img_file = save_user_img(form.user_img.data)
+            current_user.image_file = img_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account info has been updated!', 'danger')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename=f'images/{current_user.image_file}')
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
