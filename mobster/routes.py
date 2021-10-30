@@ -1,30 +1,17 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from mobster.models import User, Post
 from flask_login import login_user, logout_user, current_user, login_required
 
-test_posts = [
-    {
-        'user': 'Test User1',
-        'title': 'Test Title1', 
-        'msg_body': 'Test Blog Body1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, error! Optio doloremque nisi quae excepturi perferendis, soluta officiis mollitia a!',
-        'date_posted': 'Jan 1, 2021'
-    },
-    {
-        'user': 'Test User2',
-        'title': 'Test Title2', 
-        'msg_body': 'Test Blog Body2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, error! Optio doloremque nisi quae excepturi perferendis, soluta officiis mollitia a!',
-        'date_posted': 'Jan 2, 2021'
-    }
-]
 
 @app.route("/")
 def index():
-    return render_template('index.html', test_posts=test_posts, title='Home')
+    posts = Post.query.all()
+    return render_template('index.html', posts=posts, title='Home')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -103,3 +90,50 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename=f'images/{current_user.image_file}')
     return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+@app.route("/post/new", methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been created!', 'danger')
+        return redirect(url_for('index'))
+    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
+
+@app.route("/post/<int:post_id>")
+def post(post_id):
+    # Fetch Post(if no post return 404 error)
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+@app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Post updated!', 'danger')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':    
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+
+@app.route("/post/<int:post_id>/delete", methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted!', 'danger')
+    return redirect(url_for('index'))
