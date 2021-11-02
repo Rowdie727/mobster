@@ -186,3 +186,33 @@ def reset_token(token):
         flash('Your password has successfully been updated!', 'danger')
         return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+# Main game routes
+@app.route("/attack")
+def attack():
+    return render_template('game_templates/attack.html', title='ATTACK')
+
+@app.route("/bank")
+def bank():
+    return render_template('game_templates/bank.html', title='BANK')
+
+@app.route("/equipment")
+def equipment():
+    return render_template('game_templates/equipment.html', title='EQUIPMENT')
+    
+@app.route("/godfather")
+def godfather():
+    return render_template('game_templates/godfather.html', title='GODFATHER')
+    
+@app.route("/hitlist")
+def hitlist():
+    return render_template('game_templates/hitlist.html', title='HITLIST')
+    
+@app.route("/missions")
+def missions():
+    return render_template('game_templates/missions.html', title='MISSIONS')
+    
+@app.route("/turf")
+def turf():
+    return render_template('game_templates/turf.html', title='TURF')

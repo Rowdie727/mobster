@@ -1,6 +1,6 @@
 body {
-    background: #fafafa;
-    color: #333333;
+    background: #1d1c1c;
+    color: #ffffff;
     margin-top: 5rem;
 }
   
@@ -15,12 +15,20 @@ h1, h2, h3, h4, h5, h6 {
 .centered {
     text-align: center;
 }
-  
-.site-header .navbar-nav .nav-link {
+
+.menu-text {
+    color: #ffffff;
+}
+
+.sidebar-item {
+    background-color: #1d1c1c;
+}
+ 
+.site-header .navbar-nav .nav-link, .sidebar-item a {
     color: #cbd5db;
 }
   
-.site-header .navbar-nav .nav-link:hover {
+.site-header .navbar-nav .nav-link:hover, .side-bar-item a:hover {
     color: #ffffff;
 }
   
@@ -29,19 +37,19 @@ h1, h2, h3, h4, h5, h6 {
 }
   
 .content-section {
-    background: #ffffff;
+    background: #353333;
     padding: 10px 20px;
-    border: 1px solid #dddddd;
+    border: 1px solid #000000;
     border-radius: 3px;
     margin-bottom: 20px;
 }
   
 .article-title {
-    color: #444444;
+    color: #cbd5db;
 }
   
 a.article-title:hover {
-    color: #428bca;
+    color: #ffffff;
     text-decoration: none;
 }
   
@@ -62,7 +70,7 @@ a.article-title:hover {
 }
   
 .article-metadata a:hover {
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
 }
   
@@ -83,3 +91,10 @@ a.article-title:hover {
     font-size: 2.5rem;
 }
 
+.page {
+    background: #353333;
+    padding: 10px 20px;
+    border: 7px solid red;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
