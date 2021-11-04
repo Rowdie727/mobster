@@ -5,6 +5,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt, mail
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from mobster.models import User, Post
+from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 
