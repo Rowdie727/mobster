@@ -67,7 +67,9 @@ def save_user_img(form_user_img):
     file_name, file_ext = os.path.splitext(form_user_img.filename)
     img_filename = random_hex + file_ext
     try:
-	images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
+	    images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
+    except:
+	    ModuleNotFoundError()
     else:
         images_path = os.path.join(app.root_path, 'static\images', img_filename)
     # Resize img file

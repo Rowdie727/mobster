@@ -19,6 +19,8 @@ try:
 		app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
 		app.config['MAIL_USERNAME'] = config.get('MOB_EMAIL')
 		app.config['MAIL_PASSWORD'] = config.get('MOB_PASS')
+except:
+	ModuleNotFoundError()
 else:
 	app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
