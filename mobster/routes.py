@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
-from mobster import app, db, bcrypt, mail
+from mobster import app, db, bcrypt, mail, config
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from mobster.models import User, Post
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
@@ -66,7 +66,10 @@ def save_user_img(form_user_img):
     random_hex = secrets.token_hex(8)
     file_name, file_ext = os.path.splitext(form_user_img.filename)
     img_filename = random_hex + file_ext
-    images_path = os.path.join(app.root_path, 'static\images', img_filename)
+    try:
+	images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
+    else:
+        images_path = os.path.join(app.root_path, 'static\images', img_filename)
     # Resize img file
     output_size = (125,125)
     new_img = Image.open(form_user_img)
@@ -151,7 +154,7 @@ def user_pages(username):
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    sender_address = os.environ.get('MOB_EMAIL')
+    sender_address = config.get('MOB_EMAIL')
     message = Message('Password Reset Request', sender=sender_address, recipients=[user.email])
     message.body = f'''To reset your password visit the following link:
     {url_for('reset_token', token=token, _external=True)} '''
