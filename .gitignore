@@ -2,3 +2,4 @@ venv/
 mobster/__pycache__/ 
 server_notes.txt
 ssh_server.bat
+config.json

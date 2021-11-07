@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
-from mobster import app, db, bcrypt, mail, config
+from mobster import app, db, bcrypt, mail, config, on_server, my_project_path
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from mobster.models import User, Post
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
@@ -66,7 +66,10 @@ def save_user_img(form_user_img):
     random_hex = secrets.token_hex(8)
     file_name, file_ext = os.path.splitext(form_user_img.filename)
     img_filename = random_hex + file_ext
-    images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
+    if on_server:
+        images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
+    else:
+        images_path = os.path.join(my_project_path, img_file)
     # Resize img file
     output_size = (125,125)
     new_img = Image.open(form_user_img)

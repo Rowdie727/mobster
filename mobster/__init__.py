@@ -6,7 +6,13 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 
-cf_path = '/etc/config.json'
+my_project_path = 'C:\\Users\\crowd\\Desktop\\mobster\\'
+on_server = False
+
+if on_server:
+	cf_path = '/etc/config.json'
+else:
+	cf_path = f'{my_project_path}\config.json'
 
 with open(cf_path) as config_file:
 	config = json.load(config_file)
