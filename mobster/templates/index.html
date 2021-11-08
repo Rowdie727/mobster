@@ -1,7 +1,49 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<!-- Display posts -->
+
+	<!-- Create Posts(START) -->
+	<div class="content-section">
+		<form method="POST" action="">
+			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+			{{ form.hidden_tag() }}
+			<fieldset class="form-group">
+				<legend class="mb-4">{{ legend }}</legend>
+				<div class="form-group">
+					{{ form.title.label(class="form-control-label") }}
+					{% if form.title.errors %}
+						{{ form.title(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.title.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.title(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				<div class="form-group">
+					{{ form.content.label(class="form-control-label") }}
+					{% if form.content.errors %}
+						{{ form.content(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.content.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.content(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+			</fieldset>
+			<div class="form-group">
+				{{ form.submit(class="btn btn-outline-danger")}}
+			</div>
+		</form>
+	</div>
+	<!-- Create Post(END)-->
+	
+	<!-- Display posts(START) -->
 	{% for post in posts.items %}
 		<article class="media content-section">
 			<img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}" alt="Article Image">
@@ -15,7 +57,9 @@
 			</div>
 	  	</article>
 	{% endfor %}
-	<!-- Display page numbers -->
+	<!-- Display posts(END)-->
+
+	<!-- Display page numbers(START) -->
 	{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
 		{% if page_num %}
 		  	{% if posts.page == page_num %}
@@ -27,5 +71,6 @@
 		  	...
 		{% endif %}
 	{% endfor %}
+	<!-- Display page numbers(END)-->
 
 {% endblock %}

@@ -1,20 +1,20 @@
 import os
 import json
-from flask import Flask
+from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 
-my_project_path = 'C:\\Users\\crowd\\Desktop\\mobster\\'
+my_project_path = 'C:\\Users\crowd\Desktop\mobster'
 on_server = False
 
 if on_server:
-	cf_path = '/etc/config.json'
+	config_path = '/etc/config.json'
 else:
-	cf_path = f'{my_project_path}\config.json'
+	config_path = f'{my_project_path}\config.json'
 
-with open(cf_path) as config_file:
+with open(config_path) as config_file:
 	config = json.load(config_file)
 
 app = Flask(__name__)

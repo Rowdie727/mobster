@@ -1,8 +1,62 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<div class=page>
-		<p>TURF PAGE</p>
+	<div class="page-container">
+	 <div>
+	  <img src="{{url_for('static',filename='images/goldstrike.jpg')}}" width="300" height="180">
+	 </div>
+<br>
+    
+         <div>
+          <h3><b>CLAIM YOUR TURF</b></h3>
+           
+           <p>Territory produces the income you need to keep up with your expenses.</p>
+           <p> Your goal is a positive Cash flow. Start by buying a plot of land.</p>
+           <p> For even more income, build developments on your land!</p>
+           <p> If you lack the Cash to buy what you want, complete missions or attack rivals.</p>
+          <div style="color:green;"> Income: $0 (Upkeep: -0)</div>
+             <div class=page-container>
+              <div class=page-container-head><p>HOT DOG CART</p>
+               <div>
+	        <img src="{{url_for('static',filename='images/goldstrike.jpg')}}" width="80" height="80">
+	       </div>
+              </div>
+               <p>Income: $100</p>
+               <p>Cost: $2500</p>
+               <p>Own: 0</p>   
+               <button class="button" type="button">BUY</button>
+             </div>
+<br>
+             <div class=page-container>
+              <div class=page-container-head><p>NEWS PAPER STAND</p>
+                <div>
+	         <img src="{{url_for('static',filename='images/goldstrike.jpg')}}" width="80" height="80">
+	        </div>
+             </div>
+               <p>Income: $250</p>
+               <p>Cost: $5000</p>
+               <p>Own: 0</p>
+               <button class="button" type="button">BUY</button>
+             </div>
+<br>
+             <div class=page-container>
+              <div class=page-container-head><p>PAWN SHOP</p>
+               <div>
+	        <img src="{{url_for('static',filename='images/goldstrike.jpg')}}" width="80" height="80">
+	       </div>
+              </div>
+               <p>Income: $1000</p>
+               <p>Cost: $10,000</p>
+               <p>Own: 0</p>
+              <button class="button" type="button">BUY</button>
+             </div>
+             
+
+
+           
+         </div>
+          <div><p>Next Property Unlocked at lvl: 15</p></div>
 	</div>
+       	
 	
 {% endblock %}

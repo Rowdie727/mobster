@@ -1,8 +1,11 @@
 body {
     background: #1d1c1c;
     color: #ffffff;
-    margin-top: 5rem;
+    margin-top: 4rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
+
   
 h1, h2, h3, h4, h5, h6 {
     color: #444444;
@@ -39,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 .content-section {
     background: #353333;
     padding: 10px 20px;
-    border: 1px solid #000000;
+    border: 1px solid #9E9E9E;
     border-radius: 3px;
     margin-bottom: 20px;
 }
@@ -91,10 +94,66 @@ a.article-title:hover {
     font-size: 2.5rem;
 }
 
+/* Steven */
 .page {
     background: #353333;
     padding: 10px 20px;
-    border: 7px solid red;
-    border-radius: 3px;
-    margin-bottom: 20px;
+    border: 2px solid #4e0e13;
+    text-align: center;
+    
 }
+
+h3 {
+  color: #4e0e13;
+
+}
+
+.menu {
+    background: #1d1c1c;
+    padding: 10px 20px;
+    border: 2px solid #4e0e13;
+    text-align: center;
+}
+
+.header-img {
+    background: #353333;
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.header-container {
+    margin-bottom: 1rem;
+}
+
+.page-container {
+    background: #1d1c1c;
+    padding: 2px 4px;
+    border: 2px solid #9E9E9E;
+    text-align: center;
+}
+
+.page-container-head {
+    background: #4e0e13;
+    padding: 2px 4px;
+    border: 2px solid #9E9E9E;
+    text-align: center;
+}
+
+.button {
+  border: 1px solid #9E9E9E;
+  color: #9E9E9E;
+  background-color: #4e0e13; 
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 14px;
+  margin: 2px 1px;
+  
+}
+
+img {
+    border: 2px solid #4e0e13
+}
+
+
+/* end steven */

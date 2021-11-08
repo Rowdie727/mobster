@@ -1,20 +1,28 @@
 import os
-import secrets
-from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
-from mobster import app, db, bcrypt, mail, config, on_server, my_project_path
+from mobster import app, db, bcrypt, my_project_path
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from mobster.models import User, Post
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
+from mobster.utils import save_user_img, send_reset_email
 from flask_login import login_user, logout_user, current_user, login_required
-from flask_mail import Message
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
+@login_required
 def index():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
-    return render_template('index.html', posts=posts, title='Home')
+    # Create Posts
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been created!', 'danger')
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        return render_template('index.html', posts=posts, form=form, title='Home', legend='Create Post')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -33,8 +41,7 @@ def register():
         # Commit changes to Db
         db.session.commit()
         flash(f'Account Created for {form.username.data}!', 'danger')
-        return redirect(url_for('login'))
-        
+        return redirect(url_for('login'))    
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -60,23 +67,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
-def save_user_img(form_user_img):
-    # Hash img file
-    random_hex = secrets.token_hex(8)
-    file_name, file_ext = os.path.splitext(form_user_img.filename)
-    img_filename = random_hex + file_ext
-    if on_server:
-        images_path = os.path.join('/home/mobadmin/mobster/mobster/static/images', img_filename)
-    else:
-        images_path = os.path.join(my_project_path, img_file)
-    # Resize img file
-    output_size = (125,125)
-    new_img = Image.open(form_user_img)
-    new_img.thumbnail(output_size)
-    new_img.save(images_path)
-    return img_filename
-
 
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -152,14 +142,6 @@ def user_pages(username):
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
     return render_template('user_pages.html', posts=posts, title=username, user=user)
 
-def send_reset_email(user):
-    token = user.get_reset_token()
-    sender_address = config.get('MOB_EMAIL')
-    message = Message('Password Reset Request', sender=sender_address, recipients=[user.email])
-    message.body = f'''To reset your password visit the following link:
-    {url_for('reset_token', token=token, _external=True)} '''
-    mail.send(message)
-
 @app.route("/reset_password", methods=['GET', 'POST'])
 def request_password_reset():
     if current_user.is_authenticated:
@@ -195,28 +177,52 @@ def reset_token(token):
 # Main game routes
 @app.route("/attack")
 def attack():
-    return render_template('game_templates/attack.html', title='ATTACK')
+    return render_template('game_templates/attack.html', title='Attack')
 
 @app.route("/bank")
 def bank():
-    return render_template('game_templates/bank.html', title='BANK')
+    return render_template('game_templates/bank.html', title='Bank')
 
 @app.route("/equipment")
 def equipment():
-    return render_template('game_templates/equipment.html', title='EQUIPMENT')
+    return render_template('game_templates/equipment.html', title='Equipment')
     
 @app.route("/godfather")
 def godfather():
-    return render_template('game_templates/godfather.html', title='GODFATHER')
+    return render_template('game_templates/godfather.html', title='Godfather')
     
 @app.route("/hitlist")
 def hitlist():
-    return render_template('game_templates/hitlist.html', title='HITLIST')
+    return render_template('game_templates/hitlist.html', title='Hitlist')
     
 @app.route("/missions")
 def missions():
-    return render_template('game_templates/missions.html', title='MISSIONS')
+    return render_template('game_templates/missions.html', title='Missions')
     
 @app.route("/turf")
 def turf():
-    return render_template('game_templates/turf.html', title='TURF')
+    return render_template('game_templates/turf.html', title='Turf')
+    
+@app.route("/mods")
+def mods():
+    return render_template('game_templates/mods.html', title='Mods')
+    
+@app.route("/tos")
+def tos():
+    return render_template('game_templates/tos.html', title='TOS')
+    
+@app.route("/hospital")
+def hospital():
+    return render_template('game_templates/hospital.html', title='ICU')
+    
+@app.route("/made_men")
+def made_men():
+    return render_template('game_templates/made_men.html', title='Made Men')
+    
+@app.route("/my_mob")
+def my_mob():
+    return render_template('game_templates/my_mob.html', title='My Mob')
+    
+@app.route("/my_mobster")
+def my_mobster():
+    return render_template('game_templates/my_mobster.html', title='My Mobster')
