@@ -1,66 +1,61 @@
 {% extends "layout.html" %}
 
 {% block body %}
- <div class="page-container">
-        <div>
-	  <img src="{{url_for('static',filename='images/bank.jpg')}}" width="300" height="180">
-	</div>
+    <div class="page-container">
 
-        <div>
-	       <div>
-          <h3><b>MOBC CREDIT UNION</b></h3>
-            <p>Thank you for choosing MOBC Credit Union for all of your banking needs!</p>
-            <p> We have an account to fit your needs no matter how big or small!</p>
+		<div class="page-title">
+			<img src="{{ url_for('static',filename='images/bank.jpg') }}" alt="bank.jpg" width="300" height="180">
+			<h3><b>MOBC CREDIT UNION</b></h3>
+			<p>Thank you for choosing MOBC Credit Union for all of your banking needs!</p>
+            <p>We have an account to fit your needs no matter how big or small!</p>
             <p> Deposit and withdraw Cash or $MOBC</p>
-            
-         <div class="page-container">
-            <div class="page-container-head">
-              Balance
-            </div>
-            <p>Cash Balance:$170,000,000,000</p>
-              <p>$MOBC Balance:10,000,000</p>
-          </div>
-<br>
-           <div class="page-container">
-            <div class="page-container-head"><p>Cash Transactions</p></div>
-            <form>
-             <label for="deposit">Deposit</label>
-              <br>
-               <input type="text" "id=deposit" "name=deposit">
-              <br>
-               <input type="submit" "value=submit">
-            </form>
+		</div>
 
-            <form>
-             <label for="withdrawl">Withdrawl</label>
-              <br>
-               <input type="text" "id=withdrawl" "name=withdrawl">
-               <br>
-              <input type="submit" "value=submit">
-            </form>
-           </div>
-           
-<br>
-          <div class="page-container">
-           <div class="page-container-head"><p>$MOBC Transactions</p></div>
-            <form>
-             <label for="deposit">Deposit</label>
-              <br>
-               <input type="text" "id=deposit" "name=deposit">
-              <br>
-               <input type="submit" "value=submit">
-            </form>
+		<div class="page-container">
+			<div class="page-container-head">
+				Balance
+			</div>
+			<div class="page-container-body">
+				<p>Cash Balance:$170,000,000,000</p>
+              	<p>$MOBC Balance:10,000,000</p>
+			</div>
+		</div>
 
-            <form>
-             <label for="withdrawl">Withdrawl</label>
-             <br>
-              <input type="text" "id=withdrawl" "name=withdrawl">
-             <br>
-              <input type="submit" "value=submit">
-            </form>
+		<div class="page-container">
+			<div class="page-container-head">
+				<p>Cash Transactions</p>
+			</div>
+			<div class="page-container-body">
+				<form action="#">
+					<label for="deposit">Deposit</label><br>
+					<input type="text" name="deposit"><br>
+					<input type="submit" value="deposit">
+				</form>
+				<form action="#">
+					<label for="withdraw">Withdraw</label><br>
+					<input type="text" name="withdraw"><br>
+					<input type="submit" value="withdraw">
+				</form>
+			</div>
+		</div>
 
-           </div>
-         </div>
-	</div>
- </div>	
+		<div class="page-container">
+			<div class="page-container-head">
+				<p>$MOBC Transactions</p>
+			</div>
+			<div class="page-container-body">
+				<form action="#">
+					<label for="deposit">Deposit</label><br>
+					<input type="text" name="deposit"><br>
+					<input type="submit" value="deposit">
+				</form>
+				<form action="#">
+					<label for="withdraw">Withdraw</label><br>
+					<input type="text" name="withdraw"><br>
+					<input type="submit" value="withdraw">
+				</form>
+			</div>
+		</div>
+
+	</div>	
 {% endblock %}

@@ -63,6 +63,28 @@
         <!-- Main Container -->
         <main role="main" class="container">
             <div class="row">
+                <!-- Right Menu -->
+                <div class="col-md-4">
+                    <div class="content-section">
+                        <h3 class='menu-text centered'>Menu</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('bank') }}">Bank</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('turf') }}">Turf</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('missions') }}">Missions</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('godfather') }}">Godfather</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('attack') }}">Attack</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('hitlist') }}">Hit List</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('equipment') }}">Equipment</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('hospital') }}">Hospital</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('my_mobster') }}">My Mobster</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('my_mob') }}">My Mob</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('made_men') }}">Made Men</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('mods') }}">MODS</a></li>
+                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('tos') }}">TOS</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
                 <div class="col-md-8">
                     <!-- Flash Messages -->
                     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -85,27 +107,7 @@
                     <!-- Main Content Block -->
                     {% block body %}{% endblock %}
                 </div>
-                <!-- Right Menu -->
-                <div class="col-md-4">
-                    <div class="content-section">
-                        <h3 class='menu-text centered'>Menu</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('bank') }}">Bank</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('turf') }}">Turf</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('missions') }}">Missions</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('godfather') }}">Godfather</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('attack') }}">Attack</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('hitlist') }}">Hit List</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('equipment') }}">Equipment</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('hospital') }}">Hospital</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('my_mobster') }}">My Mobster</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('my_mob') }}">My Mob</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('made_men') }}">Made Men</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('mods') }}">MODS</a></li>
-                            <li class="list-group-item list-group-item-dark centered sidebar-item"><a href="{{ url_for('tos') }}">TOS</a></li>
-                        </ul>
-                    </div>
-                </div>
+                
        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
