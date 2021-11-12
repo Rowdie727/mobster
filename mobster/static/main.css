@@ -1,11 +1,9 @@
 body {
     background: #1d1c1c;
     color: #ffffff;
-    margin-top: 4rem;
-    
+    margin-top: 4rem;    
 }
 
-  
 h1, h2, h3, h4, h5, h6 {
     color: #444444;
 }
@@ -41,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 .content-section {
     background: #353333;
     padding: 10px 20px;
-    border: 1px solid #9E9E9E;
+    border: 1px solid #FFFFFF;
     border-radius: 3px;
     margin-bottom: 20px;
 }
@@ -54,7 +52,7 @@ a.article-title:hover {
     color: #ffffff;
     text-decoration: none;
 }
-  
+
 .article-content {
     white-space: pre-line;
 }
@@ -98,13 +96,11 @@ a.article-title:hover {
     background: #353333;
     padding: 10px 20px;
     border: 2px solid #4e0e13;
-    text-align: center;
-    
+    text-align: center;    
 }
 
 h3 {
   color: #4e0e13;
-
 }
 
 .menu {
@@ -147,7 +143,6 @@ h3 {
   text-align: center;
   font-size: 14px;
   margin: 2px 1px;
-  
 }
 
 img {

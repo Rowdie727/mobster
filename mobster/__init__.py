@@ -7,7 +7,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 
 my_project_path = 'C:\\Users\crowd\Desktop\mobster'
-on_server = False
+on_server = True
 
 if on_server:
 	config_path = '/etc/config.json'

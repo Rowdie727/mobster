@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from mobster.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=22)])
     email = StringField('E-Mail', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
@@ -24,14 +24,14 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=22)])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me?')
     submit = SubmitField('Log in!')
     
     
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=22)])
     email = StringField('E-Mail', validators=[DataRequired(), Email()])
     user_img = FileField('Update User Image', validators=[FileAllowed(['jpg', 'png', 'bmp'])])
     submit = SubmitField('Apply Changes')
