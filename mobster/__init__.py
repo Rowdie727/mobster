@@ -5,9 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 my_project_path = 'C:\\Users\crowd\Desktop\mobster'
-on_server = True
+on_server = False
 
 if on_server:
 	config_path = '/etc/config.json'
@@ -32,5 +33,5 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = config.get('MOB_EMAIL')
 app.config['MAIL_PASSWORD'] = config.get('MOB_PASS')
 mail = Mail(app)
-
+migrate = Migrate(app, db)
 from mobster import routes 

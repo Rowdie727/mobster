@@ -16,6 +16,11 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+.form-centered {
+    display: block;
+    align-self: center;
+}
+
 .menu-text {
     color: #ffffff;
 }
@@ -132,6 +137,14 @@ h3 {
     background: #4e0e13;
     padding: 2px 4px;
     border: 2px solid #9E9E9E;
+    text-align: center;
+}
+.page-container-body {
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.page-container-form {
     text-align: center;
 }
 

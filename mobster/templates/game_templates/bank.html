@@ -16,26 +16,51 @@
 		Balance
 	    </div>
 	    <div class="page-container-body">
-		<p>Cash Balance:$170,000,000,000</p>
-              	<p>$MOBC Balance:10,000,000</p>
+			<p>Bank Balance: ${{ '{:,}'.format(current_user.cash_in_bank) }}</p>
+            <p>$MOBC Balance: {{ '{:,.2f}'.format(100000) }}</p>
 	    </div>
 	</div>
 
 	<div class="page-container">
 	    <div class="page-container-head">
-                <p>Cash Transactions</p>
+            <p>Cash Transactions</p>
 	    </div>
 	    <div class="page-container-body">
-	        <form action="#">
-		    <label for="deposit">Deposit</label><br>
-		    <input type="text" name="deposit"><br>
-		    <input type="submit" value="deposit">
-		</form>
-		<form action="#">
-		    <label for="withdraw">Withdraw</label><br>
-		    <input type="text" name="withdraw"><br>
-		    <input type="submit" value="withdraw">
-	        </form>
+			<!-- Deposit Form -->
+	        <form method=POST action="#">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ deposit_form.hidden_tag() }}
+				{{ deposit_form.deposit.label(class="form-control-label") }}
+				{% if deposit_form.deposit.errors %}
+					{{ deposit_form.deposit(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in deposit_form.deposit.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ deposit_form.deposit(class="form-control form-control-lg page-container-form", autocomplete="off") }}
+				{% endif%}
+				{{ deposit_form.deposit_submit(class="btn btn-outline-danger") }}
+			</form>
+			
+			<!-- Withdraw Form -->
+			<form method=POST action="#">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ withdraw_form.hidden_tag() }}
+				{{ withdraw_form.withdraw.label(class="form-control-label") }}
+				{% if withdraw_form.withdraw.errors %}
+					{{ withdraw_form.withdraw(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in withdraw_form.withdraw.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ withdraw_form.withdraw(class="form-control form-control-lg page-container-form", autocomplete="off") }}
+				{% endif%}
+				{{ withdraw_form.withdraw_submit(class="btn btn-outline-danger") }}
+			</form>
 	    </div>
 	</div>
 

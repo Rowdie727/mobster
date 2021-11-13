@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from mobster.models import User
 
 class RegistrationForm(FlaskForm):
@@ -69,5 +69,25 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
-
     
+class BankDepositForm(FlaskForm):
+    deposit = IntegerField('Deposit', validators=[NumberRange(min=1)])
+    deposit_submit = SubmitField('Deposit')
+    
+    def validate_deposit(self, deposit):
+        try:
+            if deposit.data < 0:
+                raise ValidationError()
+        except:
+            pass
+        
+class BankWithdrawForm(FlaskForm):
+    withdraw = IntegerField('Withdraw', validators=[NumberRange(min=0)])
+    withdraw_submit = SubmitField('Withdraw')
+    
+    def validate_withdraw(self, withdraw):
+        try:
+            if withdraw.data < 0:
+                raise ValidationError()
+        except: 
+            pass

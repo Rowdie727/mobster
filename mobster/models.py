@@ -13,10 +13,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
+    cash_on_hand = db.Column(db.Integer, default=0)
+    cash_in_bank = db.Column(db.Integer, default=0)
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}', '{self.cash_on_hand}')"
 
     def get_reset_token(self, expires_sec=1800):
         serializer = Serializer(app.config['SECRET_KEY'], expires_sec)

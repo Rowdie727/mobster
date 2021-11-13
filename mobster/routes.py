@@ -1,7 +1,7 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt, my_project_path
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm
 from mobster.models import User, Post
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
 from mobster.utils import save_user_img, send_reset_email
@@ -179,9 +179,44 @@ def reset_token(token):
 def attack():
     return render_template('game_templates/attack.html', title='Attack')
 
-@app.route("/bank")
+@app.route("/bank", methods=['GET', 'POST'])
+@login_required
 def bank():
-    return render_template('game_templates/bank.html', title='Bank')
+    # Make sure users created before this can get a cash_on_hand value other than None
+    user = User.query.filter_by(username=current_user.username).first()
+    if user.cash_on_hand == None:
+        user.cash_on_hand = 0
+        db.session.commit()
+    # Make sure users created before this can get a cash_in_bank value other than None
+    if user.cash_in_bank == None:
+        user.cash_in_bank = 0
+        db.session.commit()
+    # Bank Functionality
+    # Deposits
+    deposit_form = BankDepositForm()
+    if deposit_form.validate_on_submit():
+        if deposit_form.deposit.data > user.cash_on_hand:
+            flash(f"You don't have {deposit_form.deposit.data} on hand to deposit!", 'danger')
+            return redirect(url_for('bank'))
+        else:
+            user.cash_in_bank += deposit_form.deposit.data
+            user.cash_on_hand -= deposit_form.deposit.data
+            db.session.commit()
+            flash(f'You have deposited {deposit_form.deposit.data}!', 'danger')
+            return redirect(url_for('bank'))
+    # Withdraws
+    withdraw_form = BankWithdrawForm()
+    if withdraw_form.validate_on_submit():
+        if withdraw_form.withdraw.data > user.cash_in_bank:
+            flash(f"You don't have {withdraw_form.withdraw.data} in the bank to withdraw!", 'danger')
+            return redirect(url_for('bank'))
+        else:
+            user.cash_in_bank -= withdraw_form.withdraw.data
+            user.cash_on_hand += withdraw_form.withdraw.data
+            db.session.commit()
+            flash(f'You have withdrawn {withdraw_form.withdraw.data}!', 'danger')
+            return redirect(url_for('bank'))
+    return render_template('game_templates/bank.html', title='Bank', deposit_form=deposit_form, withdraw_form=withdraw_form)
 
 @app.route("/equipment")
 def equipment():
