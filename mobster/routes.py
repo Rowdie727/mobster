@@ -182,7 +182,7 @@ def attack():
 @app.route("/bank", methods=['GET', 'POST'])
 @login_required
 def bank():
-    # Make sure users created before this can get a cash_on_hand value other than None
+    '''# Make sure users created before this can get a cash_on_hand value other than None
     user = User.query.filter_by(username=current_user.username).first()
     if user.cash_on_hand == None:
         user.cash_on_hand = 0
@@ -190,7 +190,7 @@ def bank():
     # Make sure users created before this can get a cash_in_bank value other than None
     if user.cash_in_bank == None:
         user.cash_in_bank = 0
-        db.session.commit()
+        db.session.commit()'''
     # Bank Functionality
     # Deposits
     deposit_form = BankDepositForm()
@@ -227,7 +227,7 @@ def equipment():
     form = EquipmentBuyForm()
     return render_template('game_templates/equipment.html', title='Equipment', items=items, form=form, user=user)
 
-@app.route("/equipment/buy/<int:id>", methods=['GET', 'POST'])
+@app.route("/equipment/buy/<int:id>", methods=['POST'])
 @login_required
 def buy_equipment(id):
     form = EquipmentBuyForm()
@@ -245,10 +245,10 @@ def buy_equipment_qty(id, quantity):
         user.add_item(item, qty)
         user.cash_on_hand -= total_cost
         db.session.commit()
-        flash(f'Your bought {item.item_name}!: {qty}')
+        flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost}!', 'danger')
         return redirect(url_for('equipment'))
     else:
-        flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty} {item.item_name}!")
+        flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty}x {item.item_name}(s)!", 'danger')
         return redirect(url_for('equipment'))
     
 @app.route("/godfather")

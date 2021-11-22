@@ -8,7 +8,7 @@
 			<h3><b>PURCHASE EQUIPMENT FOR YOUR MOB</b></h3>
 		</div>
 
-		<!-- Display posts(START) -->
+		<!-- Display items(START) -->
 		{% for item in items.items %}
 		<form method="POST" action="equipment/buy/{{item.id}}">
 			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
@@ -36,7 +36,7 @@
 			</fieldset>
 		</form>
 		{% endfor %}
-		<!-- Display posts(END)-->
+		<!-- Display items(END)-->
     </div>
 	
 {% endblock %}
