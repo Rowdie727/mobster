@@ -1,8 +1,8 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt, my_project_path
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm
-from mobster.models import User, Post
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm
+from mobster.models import User, Post, Item, User_Items
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
 from mobster.utils import save_user_img, send_reset_email
 from flask_login import login_user, logout_user, current_user, login_required
@@ -218,9 +218,38 @@ def bank():
             return redirect(url_for('bank'))
     return render_template('game_templates/bank.html', title='Bank', deposit_form=deposit_form, withdraw_form=withdraw_form)
 
-@app.route("/equipment")
+@app.route("/equipment", methods=['GET', 'POST'])
+@login_required
 def equipment():
-    return render_template('game_templates/equipment.html', title='Equipment')
+    user = User.query.get(current_user.id)
+    page = request.args.get('page', 1, type=int)
+    items = Item.query.order_by(Item.id).paginate(page=page, per_page=10)
+    form = EquipmentBuyForm()
+    return render_template('game_templates/equipment.html', title='Equipment', items=items, form=form, user=user)
+
+@app.route("/equipment/buy/<int:id>", methods=['GET', 'POST'])
+@login_required
+def buy_equipment(id):
+    form = EquipmentBuyForm()
+    qty = form.quantity.data
+    return redirect(f"/equipment/buy/{id}/{qty}")
+    
+@app.route("/equipment/buy/<int:id>/<int:quantity>", methods=['GET', 'POST'])
+@login_required
+def buy_equipment_qty(id, quantity):
+    user = User.query.get_or_404(current_user.id)
+    item = Item.query.get_or_404(id)
+    qty = quantity
+    total_cost = item.item_cost * qty
+    if user.cash_on_hand >= total_cost:
+        user.add_item(item, qty)
+        user.cash_on_hand -= total_cost
+        db.session.commit()
+        flash(f'Your bought {item.item_name}!: {qty}')
+        return redirect(url_for('equipment'))
+    else:
+        flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty} {item.item_name}!")
+        return redirect(url_for('equipment'))
     
 @app.route("/godfather")
 def godfather():

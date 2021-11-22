@@ -5,6 +5,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from mobster.models import User
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=22)])
     email = StringField('E-Mail', validators=[DataRequired(), Email()])
@@ -70,6 +71,7 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
     
+    
 class BankDepositForm(FlaskForm):
     deposit = IntegerField('Deposit', validators=[NumberRange(min=1)])
     deposit_submit = SubmitField('Deposit')
@@ -80,6 +82,7 @@ class BankDepositForm(FlaskForm):
                 raise ValidationError()
         except:
             pass
+   
         
 class BankWithdrawForm(FlaskForm):
     withdraw = IntegerField('Withdraw', validators=[NumberRange(min=0)])
@@ -91,3 +94,8 @@ class BankWithdrawForm(FlaskForm):
                 raise ValidationError()
         except: 
             pass
+        
+
+class EquipmentBuyForm(FlaskForm):
+    quantity = IntegerField('Quantity')
+    buy_submit = SubmitField('Buy')

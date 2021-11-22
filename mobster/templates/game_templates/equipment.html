@@ -7,51 +7,36 @@
 			<img src="{{url_for('static',filename='images/godfather.jpg')}}" alt="godfather.jpg" width="300" height="180">
 			<h3><b>PURCHASE EQUIPMENT FOR YOUR MOB</b></h3>
 		</div>
-		<div class="page-container">
-			<div class="page-container-head">
-				<p>BAMBOO STICK</p>
-				<img src="{{url_for('static',filename='images/bamboo3.png')}}" width="80" height="80">
-			</div>
-			<div class="page-container-body">
-				ATK:10
-				DEF:10
-				<p>Cost: $500</p>
-				<p>Upkeep: $0</p>
-				<p>Own: 0</p>
-				<button class="button" type="button">BUY</button>
-			</div>
-		</div>
 
-		<div class="page-container">
-			<div class="page-container-head">
-				<p>FEDORA</p>
-				<img src="{{url_for('static',filename='images/hat.png')}}" width="80" height="80">
-			</div>
-			<div class="page-container-body">
-				ATK:5
-				DEF:10
-				<p>Cost: $250</p>
-				<p>Upkeep: $0</p>
-				<p>Own: 0</p>
-				<button class="button" type="button">BUY</button>
-			</div>
-		</div>
-
-		<div class="page-container">
-			<div class="page-container-head">
-				<p>SWITCH BLADE</p>
-				<img src="{{url_for('static',filename='images/switch_blade.png')}}" width="80" height="80">
-			</div>
-			<div class="page-container-body">
-				ATK:10
-				DEF:5
-				<p>Cost: $100</p>
-				<p>Upkeep: $0</p>
-				<p>Own: 0</p>
-				<button class="button" type="button">BUY</button>
-			</div>
-		</div>
-
+		<!-- Display posts(START) -->
+		{% for item in items.items %}
+		<form method="POST" action="equipment/buy/{{item.id}}">
+			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+			{{ form.hidden_tag() }}
+			<fieldset>
+				<div class="page-container">
+					<div class="page-container-head">
+						<p>{{ item.item_name }}</p>
+						<img src="{{url_for('static', filename='images/' + item.item_image) }}" width="80" height="80">
+					</div>
+					<div class="page-container-body">
+						<h6>Attack: {{ item.item_attack }} | Defense: {{ item.item_defense }} | Decay: {{ item.item_decay }}</h6>
+						<h6>Cost: {{ item.item_cost }}</h6>
+						{% for _item in user.items %}
+							{% if _item.item_id == item.id %}
+								<h6>Own: {{_item.item_quantity}}</h6>
+							{% endif %}
+						{% endfor %}
+			
+						<p>{{form.quantity.label(class="form-control-label") }}:</p>
+						<p>{{form.quantity(class="form-control form-control-lg page-container-form") }}</p>
+						<p>{{form.buy_submit(class="btn btn-outline-danger")}}</p>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		{% endfor %}
+		<!-- Display posts(END)-->
     </div>
 	
 {% endblock %}
