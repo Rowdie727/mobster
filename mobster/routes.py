@@ -182,9 +182,9 @@ def attack():
 @app.route("/bank", methods=['GET', 'POST'])
 @login_required
 def bank():
-    '''# Make sure users created before this can get a cash_on_hand value other than None
+    '''# Make sure users created before this can get a cash_on_hand value other than None'''
     user = User.query.filter_by(username=current_user.username).first()
-    if user.cash_on_hand == None:
+    '''if user.cash_on_hand == None:
         user.cash_on_hand = 0
         db.session.commit()
     # Make sure users created before this can get a cash_in_bank value other than None
@@ -227,12 +227,20 @@ def equipment():
     form = EquipmentBuyForm()
     return render_template('game_templates/equipment.html', title='Equipment', items=items, form=form, user=user)
 
-@app.route("/equipment/buy/<int:id>", methods=['POST'])
+@app.route("/equipment/sale/<int:id>", methods=['POST'])
 @login_required
-def buy_equipment(id):
+def buy_sell_equipment(id):
     form = EquipmentBuyForm()
     qty = form.quantity.data
-    return redirect(f"/equipment/buy/{id}/{qty}")
+    if form.validate_on_submit():
+        if form.buy_submit.data and qty > 0:
+            return redirect(f"/equipment/buy/{id}/{qty}")
+        if form.sell_submit.data and qty > 0:
+            return redirect(f"/equipment/sell/{id}/{qty}")
+    else:
+        flash('Something went bad!', 'danger')
+        return redirect(url_for('equipment'))
+        
     
 @app.route("/equipment/buy/<int:id>/<int:quantity>", methods=['GET', 'POST'])
 @login_required
@@ -250,6 +258,24 @@ def buy_equipment_qty(id, quantity):
     else:
         flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty}x {item.item_name}(s)!", 'danger')
         return redirect(url_for('equipment'))
+
+    
+@app.route("/equipment/sell/<int:id>/<int:quantity>", methods=['GET', 'POST'])
+@login_required
+def sell_equipment_qty(id, quantity):
+    user = User.query.get_or_404(current_user.id)
+    item = Item.query.get_or_404(id)
+    qty = quantity
+    total_sale = item.item_sell * qty
+    if user.sell_item(item, quantity):
+        user.cash_on_hand += total_sale
+        db.session.commit()
+        flash(f'You sold {qty}x {item.item_name}(s) for ${total_sale}!', 'danger')
+        return redirect(url_for('equipment'))
+    else:
+        flash(f"You don't have {qty}x {item.item_name}(s) to sell!", 'danger')
+        return redirect(url_for('equipment'))
+    
     
 @app.route("/godfather")
 def godfather():

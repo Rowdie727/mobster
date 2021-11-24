@@ -10,7 +10,7 @@
 
 		<!-- Display items(START) -->
 		{% for item in items.items %}
-		<form method="POST" action="equipment/buy/{{item.id}}">
+		<form method="POST" action="equipment/sale/{{item.id}}">
 			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
 			{{ form.hidden_tag() }}
 			<fieldset>
@@ -21,7 +21,7 @@
 					</div>
 					<div class="page-container-body">
 						<h6>Attack: {{ item.item_attack }} | Defense: {{ item.item_defense }} | Decay: {{ item.item_decay }}</h6>
-						<h6>Cost: {{ item.item_cost }}</h6>
+						<h6>Buy Price: {{ item.item_cost }} | Sell Price: {{item.item_sell}}</h6>
 						{% for _item in user.items %}
 							{% if _item.item_id == item.id %}
 								<h6>Own: {{_item.item_quantity}}</h6>
@@ -31,6 +31,7 @@
 						<p>{{form.quantity.label(class="form-control-label") }}:</p>
 						<p>{{form.quantity(class="form-control form-control-lg page-container-form") }}</p>
 						<p>{{form.buy_submit(class="btn btn-outline-danger")}}</p>
+						<p>{{form.sell_submit(class="btn btn-outline-danger")}}</p>
 					</div>
 				</div>
 			</fieldset>

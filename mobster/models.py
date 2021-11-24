@@ -48,6 +48,17 @@ class User(db.Model, UserMixin):
                     return 
             user.items.append(User_Items(item=_item, item_quantity=quantity))
             db.session.commit()
+            
+    def sell_item(self, _item, quantity):
+        user = User.query.get(self.id)
+        for item in user.items:
+            if item.item_id == _item.id:
+                if item.item_quantity >= quantity:
+                    item.item_quantity -= quantity
+                    db.session.commit()
+                    return True
+        return False 
+            
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)    

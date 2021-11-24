@@ -97,5 +97,6 @@ class BankWithdrawForm(FlaskForm):
         
 
 class EquipmentBuyForm(FlaskForm):
-    quantity = IntegerField('Quantity')
+    quantity = IntegerField('Quantity', validators=[NumberRange(min=0)])
     buy_submit = SubmitField('Buy')
+    sell_submit = SubmitField('Sell')
