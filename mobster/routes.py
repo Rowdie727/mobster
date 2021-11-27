@@ -223,7 +223,7 @@ def bank():
 def equipment():
     user = User.query.get(current_user.id)
     page = request.args.get('page', 1, type=int)
-    items = Item.query.order_by(Item.id).paginate(page=page, per_page=10)
+    items = Item.query.order_by(Item.level_required).where(Item.level_required <= user.stats.user_level).paginate(page=page, per_page=10)
     form = EquipmentBuyForm()
     return render_template('game_templates/equipment.html', title='Equipment', items=items, form=form, user=user)
 
@@ -249,12 +249,13 @@ def buy_equipment_qty(id, quantity):
     item = Item.query.get_or_404(id)
     qty = quantity
     total_cost = item.item_cost * qty
+    total_xp = (5 * qty)
     if user.cash_on_hand >= total_cost:
         user.add_item(item, qty)
         user.cash_on_hand -= total_cost
-        user.give_xp(5 * qty)
+        user.give_xp(total_xp)
         db.session.commit()
-        flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost} and gained {5 * qty}xp!', 'danger')
+        flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost} and gained {total_xp}xp!', 'danger')
         return redirect(url_for('equipment'))
     else:
         flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty}x {item.item_name}(s)!", 'danger')

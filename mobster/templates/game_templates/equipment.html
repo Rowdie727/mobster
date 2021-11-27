@@ -10,34 +10,53 @@
 
 		<!-- Display items(START) -->
 		{% for item in items.items %}
-		<form method="POST" action="equipment/sale/{{item.id}}">
-			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
-			{{ form.hidden_tag() }}
-			<fieldset>
-				<div class="page-container">
-					<div class="page-container-head">
-						<p>{{ item.item_name }}</p>
-						<img src="{{url_for('static', filename='images/' + item.item_image) }}" width="80" height="80">
-					</div>
-					<div class="page-container-body">
-						<h6>Attack: {{ item.item_attack }} | Defense: {{ item.item_defense }} | Decay: {{ item.item_decay }}</h6>
-						<h6>Buy Price: {{ item.item_cost }} | Sell Price: {{item.item_sell}}</h6>
-						{% for _item in user.items %}
-							{% if _item.item_id == item.id %}
-								<h6>Own: {{_item.item_quantity}}</h6>
-							{% endif %}
-						{% endfor %}
 			
-						<p>{{form.quantity.label(class="form-control-label") }}:</p>
-						<p>{{form.quantity(class="form-control form-control-lg page-container-form") }}</p>
-						<p>{{form.buy_submit(class="btn btn-outline-danger")}}</p>
-						<p>{{form.sell_submit(class="btn btn-outline-danger")}}</p>
+			<form method="POST" action="equipment/sale/{{item.id}}">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ form.hidden_tag() }}
+				<fieldset>
+					<div class="page-container">
+						<div class="page-container-head">
+							<p>{{ item.item_name }}</p>
+							<img src="{{url_for('static', filename='item_images/' + item.item_image) }}" width="80" height="80">
+						</div>
+						<div class="page-container-body">
+							<h6>Attack: {{ item.item_attack }} | Defense: {{ item.item_defense }} | Decay: {{ item.item_decay }}</h6>
+							<h6>Buy Price: {{ item.item_cost }} | Sell Price: {{item.item_sell}}</h6>
+							<h6>Level Required: {{item.level_required}}</h6>
+							{% for _item in user.items %}
+								{% if _item.item_id == item.id %}
+									<h6>Own: {{_item.item_quantity}}</h6>
+								{% endif %}
+							{% endfor %}
+				
+							<p>{{form.quantity.label(class="form-control-label") }}:</p>
+							<p>{{form.quantity(class="form-control form-control-lg page-container-form") }}</p>
+							<p>{{form.buy_submit(class="btn btn-outline-danger")}}</p>
+							<p>{{form.sell_submit(class="btn btn-outline-danger")}}</p>
+						</div>
 					</div>
-				</div>
-			</fieldset>
-		</form>
+				</fieldset>
+			</form>
+			
+
 		{% endfor %}
 		<!-- Display items(END)-->
+
+		
     </div>
+	<!-- Display page numbers(START) -->
+	{% for page_num in items.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+		{% if page_num and items.next %}
+		  	{% if items.page == page_num %}
+			  	<a class="btn btn-danger mb-4" href="{{ url_for('equipment', page=page_num) }}">{{ page_num }}</a>
+		  	{% else %}
+			  	<a class="btn btn-outline-danger mb-4" href="{{ url_for('equipment', page=page_num) }}">{{ page_num }}</a>
+			{% endif %}
+		{% else %}  
+		  	...
+		{% endif %}
+	{% endfor %}
+<!-- Display page numbers(END)-->
 	
 {% endblock %}

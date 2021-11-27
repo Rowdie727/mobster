@@ -112,7 +112,7 @@ class Item(db.Model):
     level_required = db.Column(db.Integer)
     
     def __repr__(self):
-        return f'Item(id={self.id}, item_name={self.item_name})'
+        return f'Item(id={self.id}, item_name={self.item_name}, item_image={self.item_image}, item_type={self.item_type}, item_attack={self.item_attack}, item_defense={self.item_defense}, item_cost={self.item_cost}, item_sell={self.item_sell}, item_decay={self.item_decay}, item_repair={self.item_repair}, level_required={self.level_required})'
 
 
 class User_Stats(db.Model):
