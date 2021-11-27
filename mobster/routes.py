@@ -252,6 +252,7 @@ def buy_equipment_qty(id, quantity):
     if user.cash_on_hand >= total_cost:
         user.add_item(item, qty)
         user.cash_on_hand -= total_cost
+        user.give_xp(5 * qty)
         db.session.commit()
         flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost}!', 'danger')
         return redirect(url_for('equipment'))

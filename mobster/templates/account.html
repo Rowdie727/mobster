@@ -7,6 +7,9 @@
             <div class="media-body">
                 <h2 class="account-heading">{{ current_user.username }}</h2>
                 <p class="text-secondary">{{ current_user.email }}</p>
+                <p class="text-secondary">Level: {{ current_user.stats.user_level }}</p>
+                <p class="text-secondary">Xp: {{ current_user.stats.user_experience }}</p>
+                <p class="text-secondary">Next Level: {{ current_user.stats.experience_to_level_up }}xp</p>
             </div>
         </div>
         

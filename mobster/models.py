@@ -17,9 +17,10 @@ class User(db.Model, UserMixin):
     cash_in_bank = db.Column(db.Integer, default=0)
     posts = db.relationship('Post', backref='author', lazy=True)
     items = db.relationship('User_Items', lazy=True)
+    stats = db.relationship('User_Stats', uselist=False)
 
     def __repr__(self):
-        return f'User(username={self.username}, email={self.email}, image_file={self.image_file}, cash_on_hand={self.cash_on_hand}, cash_in_bank={self.cash_in_bank}, items={self.items})'
+        return f'User(username={self.username}, email={self.email}, image_file={self.image_file}, cash_on_hand={self.cash_on_hand}, cash_in_bank={self.cash_in_bank}, items={self.items}. stats={self.stats})'
         #return f'User(username={self.username})'
 
     def get_reset_token(self, expires_sec=1800):
@@ -59,6 +60,22 @@ class User(db.Model, UserMixin):
                     return True
         return False 
             
+    def ready_to_level_up(self):
+        if self.stats.user_experience >= self.stats.experience_to_level_up:
+            return True
+        return False
+    
+    def give_xp(self, xp):
+        self.stats.user_experience += xp
+        if self.ready_to_level_up():
+            left_over_xp = self.stats.user_experience - self.stats.experience_to_level_up
+            self.update_level()
+            self.give_xp(left_over_xp)
+        
+    def update_level(self):
+            self.stats.user_level += 1
+            self.stats.user_experience = 0
+            self.stats.experience_to_level_up += 100
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)    
@@ -96,3 +113,15 @@ class Item(db.Model):
     
     def __repr__(self):
         return f'Item(id={self.id}, item_name={self.item_name})'
+
+
+class User_Stats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_level = db.Column(db.Integer, nullable=False, default=1)
+    user_experience = db.Column(db.Integer, nullable=False, default=0)
+    experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    def __repr__(self):
+        return f"User_Stats(user_level = {self.user_level}, user_experience = {self.user_experience}, experience_to_level_up = {self.experience_to_level_up}"
+    
