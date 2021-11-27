@@ -254,7 +254,7 @@ def buy_equipment_qty(id, quantity):
         user.cash_on_hand -= total_cost
         user.give_xp(5 * qty)
         db.session.commit()
-        flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost}!', 'danger')
+        flash(f'You bought {qty}x {item.item_name}(s) for ${total_cost} and gained {5 * qty}xp!', 'danger')
         return redirect(url_for('equipment'))
     else:
         flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty}x {item.item_name}(s)!", 'danger')
