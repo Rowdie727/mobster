@@ -73,9 +73,24 @@ class User(db.Model, UserMixin):
             self.give_xp(left_over_xp)
         
     def update_level(self):
-            self.stats.user_level += 1
-            self.stats.user_experience = 0
-            self.stats.experience_to_level_up += 100
+        self.stats.user_level += 1
+        self.stats.user_experience = 0
+        self.stats.experience_to_level_up += 100
+            
+    def heal_user(self, heal_by=50):
+        if self.stats.user_current_health + heal_by > self.stats.user_max_health:
+            self.stats.user_current_health = self.stats.user_max_health
+        else:
+            self.stats.user_current_health += heal_by
+            
+    def get_punched(self):
+        self.stats.user_current_health -= 10
+        
+    def is_in_icu(self):
+        if self.stats.user_in_icu == True:
+            return True
+        return False
+            
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)    
@@ -118,10 +133,13 @@ class Item(db.Model):
 class User_Stats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_level = db.Column(db.Integer, nullable=False, default=1)
+    user_current_health = db.Column(db.Integer, default=100)
+    user_max_health = db.Column(db.Integer, default=100)
+    user_in_icu = db.Column(db.Boolean, default=False)
     user_experience = db.Column(db.Integer, nullable=False, default=0)
     experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self):
-        return f"User_Stats(user_level = {self.user_level}, user_experience = {self.user_experience}, experience_to_level_up = {self.experience_to_level_up}"
+        return f"User_Stats(user_level = {self.user_level}, user_experience = {self.user_experience}, experience_to_level_up = {self.experience_to_level_up}, user_current_health = {self.user_current_health}, user_max_health = {self.user_max_health}, user_in_icu = {self.user_in_icu}"
     

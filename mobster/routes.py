@@ -1,7 +1,7 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt, my_project_path
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm
 from mobster.models import User, Post, Item, User_Items
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
 from mobster.utils import save_user_img, send_reset_email
@@ -303,14 +303,40 @@ def mods():
 def tos():
     return render_template('game_templates/tos.html', title='TOS')
     
-@app.route("/hospital")
+@app.route("/hospital", methods=['GET', 'POST'])
 def hospital():
-    return render_template('game_templates/hospital.html', title='ICU')
+    user = User.query.get_or_404(current_user.id)
+    form = HospitalForm()
+    page = request.args.get('page', 1, type=int)
+    users = User.query.order_by(User.id).where(user.is_in_icu() == True).paginate(page=page, per_page=10)
+    if user.cash_on_hand >= 500 and form.validate_on_submit():
+        if form.heal_submit.data:
+            if user.stats.user_current_health == user.stats.user_max_health:
+                flash('Your health is already full!', 'danger')
+            else:
+                user.heal_user()
+                user.cash_on_hand -= 500        
+                db.session.commit()
+        
+        
+    return render_template('game_templates/hospital.html', title='ICU', form=form, users=users)
+    
+@app.route("/hospital/punch/<int:id>", methods=['POST'])
+def hospital_punch(id):
+    user = User.query.get(id)
+    form = HospitalForm()
+    if form.punch_submit.data:
+        user.get_punched()
+        post = Post(user_id=current_user.id, title=f"{current_user.username} just punched {user.username}!", content=f"{user.username} just got rocked for 10hp!")
+        db.session.add(post)
+        db.session.commit()
+    return redirect(url_for('hospital'))
+    
     
 @app.route("/made_men")
 def made_men():
     return render_template('game_templates/made_men.html', title='Made Men')
-    
+
 @app.route("/my_mob")
 def my_mob():
     return render_template('game_templates/my_mob.html', title='My Mob')
