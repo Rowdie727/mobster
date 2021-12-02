@@ -8,7 +8,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 
 my_project_path = 'C:\\Users\crowd\Desktop\mobties'
-on_server = False
+on_server = True
 
 if on_server:
 	config_path = '/etc/config.json'

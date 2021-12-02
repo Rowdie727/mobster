@@ -85,6 +85,10 @@ class User(db.Model, UserMixin):
             
     def get_punched(self):
         self.stats.user_current_health -= 10
+        if self.stats.user_current_health < 0:
+                self.stats.user_current_health = 0
+                return False
+        return True
         
     def is_in_icu(self):
         if self.stats.user_in_icu == True:

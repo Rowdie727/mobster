@@ -2,7 +2,7 @@ import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from mobster import app, db, bcrypt, my_project_path
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm
-from mobster.models import User, Post, Item, User_Items
+from mobster.models import User, Post, Item, User_Items, User_Stats
 from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
 from mobster.utils import save_user_img, send_reset_email
 from flask_login import login_user, logout_user, current_user, login_required
@@ -39,6 +39,10 @@ def register():
         # Add user to Db
         db.session.add(user)
         # Commit changes to Db
+        db.session.commit()
+        # Give user stats
+        stats = User_Stats(user_id=user.id)
+        db.session.add(stats)
         db.session.commit()
         flash(f'Account Created for {form.username.data}!', 'danger')
         return redirect(url_for('login'))    
@@ -308,7 +312,7 @@ def hospital():
     user = User.query.get_or_404(current_user.id)
     form = HospitalForm()
     page = request.args.get('page', 1, type=int)
-    users = User.query.order_by(User.id).where(user.is_in_icu() == True).paginate(page=page, per_page=10)
+    users = User.query.order_by(User.id).paginate(page=page, per_page=10)
     if user.cash_on_hand >= 500 and form.validate_on_submit():
         if form.heal_submit.data:
             if user.stats.user_current_health == user.stats.user_max_health:
@@ -325,8 +329,7 @@ def hospital():
 def hospital_punch(id):
     user = User.query.get(id)
     form = HospitalForm()
-    if form.punch_submit.data:
-        user.get_punched()
+    if form.punch_submit.data and user.get_punched():
         post = Post(user_id=current_user.id, title=f"{current_user.username} just punched {user.username}!", content=f"{user.username} just got rocked for 10hp!")
         db.session.add(post)
         db.session.commit()
