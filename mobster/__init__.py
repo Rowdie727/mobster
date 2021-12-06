@@ -1,4 +1,3 @@
-import os
 import json
 from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -22,6 +21,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = config.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

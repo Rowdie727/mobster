@@ -1,12 +1,18 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
-from mobster import app, db, bcrypt, my_project_path
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm
-from mobster.models import User, Post, Item, User_Items, User_Stats
-from mobster.error_handler import handle_error_404, handle_error_404, handle_error_500
-from mobster.utils import save_user_img, send_reset_email
+from mobster import app, db, bcrypt
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm
+from mobster.models import User, Post, Item, User_Stats, Turf
+from mobster.utils import save_user_img, send_reset_email, pay_users
 from flask_login import login_user, logout_user, current_user, login_required
 
+# Scheduled Tasks
+@app.cli.command()
+def schedule():
+    print("Paying Users...")
+    pay_users()
+    db.session.commit()
+    print("Users successfully paid!")
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -186,17 +192,9 @@ def attack():
 @app.route("/bank", methods=['GET', 'POST'])
 @login_required
 def bank():
-    '''# Make sure users created before this can get a cash_on_hand value other than None'''
-    user = User.query.filter_by(username=current_user.username).first()
-    '''if user.cash_on_hand == None:
-        user.cash_on_hand = 0
-        db.session.commit()
-    # Make sure users created before this can get a cash_in_bank value other than None
-    if user.cash_in_bank == None:
-        user.cash_in_bank = 0
-        db.session.commit()'''
     # Bank Functionality
     # Deposits
+    user = User.query.filter_by(username=current_user.username).first()
     deposit_form = BankDepositForm()
     if deposit_form.validate_on_submit():
         if deposit_form.deposit.data > user.cash_on_hand:
@@ -297,7 +295,66 @@ def missions():
     
 @app.route("/turf")
 def turf():
-    return render_template('game_templates/turf.html', title='Turf')
+    user = User.query.get(current_user.id)
+    page = request.args.get('page', 1, type=int)
+    turfs = Turf.query.order_by(Turf.level_required).where(Turf.level_required <= user.stats.user_level).paginate(page=page, per_page=5)
+    form = TurfBuyForm()
+    return render_template('game_templates/turf.html', title='Turf', turfs=turfs, form=form, user=user)
+    
+@app.route("/turf/sale/<int:id>", methods=['POST'])
+@login_required
+def buy_sell_turf(id):
+    form = TurfBuyForm()
+    qty = form.quantity.data
+    if form.validate_on_submit():
+        if form.buy_submit.data and qty > 0:
+            return redirect(f"/turf/buy/{id}/{qty}")
+        if form.sell_submit.data and qty > 0:
+            return redirect(f"/turf/sell/{id}/{qty}")
+    else:
+        flash('Something went bad!', 'danger')
+        return redirect(url_for('turf'))
+    
+@app.route("/turf/buy/<int:id>/<int:quantity>", methods=['GET', 'POST'])
+@login_required
+def buy_turf_qty(id, quantity):
+    user = User.query.get_or_404(current_user.id)
+    turf = Turf.query.get_or_404(id)
+    qty = quantity
+    total_cost = turf.turf_cost * qty
+    total_xp = (5 * qty)
+    if user.cash_on_hand >= total_cost:
+        user.add_turf(turf, qty)
+        user.cash_on_hand -= total_cost
+        user.give_xp(total_xp)
+        user.stats.user_total_income += (turf.turf_income * qty)
+        db.session.commit()
+        flash(f'You bought {qty}x {turf.turf_name}(s) for ${total_cost} and gained {total_xp}xp!', 'danger')
+        return redirect(url_for('turf'))
+    else:
+        flash(f"You need ${'{:,}'.format(total_cost)} to buy {qty}x {turf.turf_name}(s)!", 'danger')
+        return redirect(url_for('turf'))
+
+    
+@app.route("/turf/sell/<int:id>/<int:quantity>", methods=['GET', 'POST'])
+@login_required
+def sell_turf_qty(id, quantity):
+    user = User.query.get_or_404(current_user.id)
+    turf = Turf.query.get_or_404(id)
+    qty = quantity
+    total_sale = turf.turf_sell * qty
+    if user.sell_turf(turf, quantity):
+        user.cash_on_hand += total_sale
+        user.stats.user_total_income -= total_sale
+        if user.stats.user_total_income < 0:
+            user.stats.user_total_income = 0
+        db.session.commit()
+        flash(f'You sold {qty}x {turf.turf_name}(s) for ${total_sale}!', 'danger')
+        return redirect(url_for('turf'))
+    else:
+        flash(f"You don't have {qty}x {turf.turf_name}(s) to sell!", 'danger')
+        return redirect(url_for('turf'))    
+
     
 @app.route("/mods")
 def mods():

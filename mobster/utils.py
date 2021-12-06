@@ -1,10 +1,17 @@
 import os
 import secrets
+from datetime import datetime
 from flask import url_for
 from flask_mail import Message
 from mobster import app, on_server, config, mail
+from mobster.models import User
 from PIL import Image
 
+def pay_users():
+    for user in User.query.all():
+        if user.stats.user_total_income > 0:
+            print(f'{user.id}//{datetime.utcnow()}: {user.username} paid {user.stats.user_total_income}!')
+            user.cash_on_hand += user.stats.user_total_income
 
 
 def save_user_img(form_user_img):

@@ -1,0 +1,93 @@
+{
+    "turf": [
+        {
+            "turf_name": "hot dog cart",
+            "turf_image": "default.jpg",
+            "turf_cost": 2500,
+            "turf_sell": 1250,
+            "turf_income": 100,
+            "level_required": 1
+        },
+
+        {
+            "turf_name": "newsstand",
+            "turf_image": "default.jpg",
+            "turf_cost": 5000,
+            "turf_sell": 2500,
+            "turf_income": 250,
+            "level_required": 1
+        },
+
+        {
+            "turf_name": "pawn shop",
+            "turf_image": "default.jpg",
+            "turf_cost": 10000,
+            "turf_sell": 5000,
+            "turf_income": 1000,
+            "level_required": 5
+        },
+
+        {
+            "turf_name": "still",
+            "turf_image": "default.jpg",
+            "turf_cost": 50000,
+            "turf_sell": 25000,
+            "turf_income": 5000,
+            "level_required": 5
+        },
+
+        {
+            "turf_name": "brothel",
+            "turf_image": "default.jpg",
+            "turf_cost": 100000,
+            "turf_sell": 50000,
+            "turf_income": 10000,
+            "level_required": 10
+        },
+
+        {
+            "turf_name": "roadhouse",
+            "turf_image": "default.jpg",
+            "turf_cost": 500000,
+            "turf_sell": 250000,
+            "turf_income": 20000,
+            "level_required": 10
+        },
+
+        {
+            "turf_name": "speakeasie",
+            "turf_image": "default.jpg",
+            "turf_cost": 800000,
+            "turf_sell": 400000,
+            "turf_income": 40000,
+            "level_required": 15
+        },
+
+        {
+            "turf_name": "carpet joint",
+            "turf_image": "default.jpg",
+            "turf_cost": 1000000,
+            "turf_sell": 500000,
+            "turf_income": 50000,
+            "level_required": 15
+        },
+
+        {
+            "turf_name": "pizza joint",
+            "turf_image": "default.jpg",
+            "turf_cost": 1000000,
+            "turf_sell": 500000,
+            "turf_income": 75000,
+            "level_required": 25
+        },
+
+        {
+            "turf_name": "steak house",
+            "turf_image": "default.jpg",
+            "turf_cost": 1500000,
+            "turf_sell": 750000,
+            "turf_income": 85000,
+            "level_required": 40
+        }
+    ]
+}
