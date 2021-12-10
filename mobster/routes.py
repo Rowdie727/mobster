@@ -345,7 +345,7 @@ def sell_turf_qty(id, quantity):
     total_sale = turf.turf_sell * qty
     if user.sell_turf(turf, quantity):
         user.cash_on_hand += total_sale
-        user.stats.user_total_income -= total_sale
+        user.stats.user_total_income -= turf.turf_income
         if user.stats.user_total_income < 0:
             user.stats.user_total_income = 0
         db.session.commit()
