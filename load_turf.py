@@ -14,18 +14,17 @@ with open('turf.json') as turf_file:
         turf_obj = Turf(turf_name=turf['turf_name'], turf_image=turf['turf_image'], turf_cost=turf['turf_cost'], turf_sell=turf['turf_sell'], turf_income=turf['turf_income'], level_required=turf['level_required'])
         
         # Query database for item of the same name
-        # dbturf = Turf.query.filter_by(turf_name=turf['turf_name']).first()
+        dbturf = Turf.query.filter_by(turf_name=turf['turf_name']).first()
         
         # If item exists in db update it, otherwise add it
-        '''if turf['turf_name'] == dbturf.turf_name:
+        if turf['turf_name'] == dbturf.turf_name:
             dbturf.turf_image = turf['turf_image']
             dbturf.turf_cost = turf['turf_cost']
             dbturf.turf_sell = turf['turf_sell']
             dbturf.turf_income = turf['turf_income']
             dbturf.level_required = turf['level_required']
-        else:'''
-            
-        db.session.add(turf_obj)  
+        else:
+            db.session.add(turf_obj)  
             
         
     # Commit changes 

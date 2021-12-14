@@ -3,7 +3,7 @@
         {
             "id": 1,
             "item_name": "ink pen",
-            "item_image": "pen.png",
+            "item_image": "pen2.png",
             "item_type": "weapon",
             "item_attack": 50,
             "item_defense": 0,
@@ -17,7 +17,7 @@
         {
             "id": 2,
             "item_name": "molotov cocktail",
-            "item_image": "molotov.png",
+            "item_image": "molotov2.png",
             "item_type": "weapon",
             "item_attack": 100,
             "item_defense": 0,
@@ -31,7 +31,7 @@
         {
             "id": 3,
             "item_name": "kitchen knife",
-            "item_image": "knife.png",
+            "item_image": "knife2.png",
             "item_type": "weapon",
             "item_attack": 1,
             "item_defense": 1,
@@ -45,7 +45,7 @@
         {
             "id": 4,
             "item_name": "denim jacket",
-            "item_image": "denim.jpg",
+            "item_image": "denim.png",
             "item_type": "armor",
             "item_attack": 0,
             "item_defense": 50,
@@ -59,7 +59,7 @@
         {
             "id": 5,
             "item_name":"leather jacket" ,
-            "item_image": "leather.jpg",
+            "item_image": "leather.png",
             "item_type": "armor",
             "item_attack": 0,
             "item_defense": 100,
@@ -70,494 +70,494 @@
             "level_required": 1
         },
             
-            {
-                "id": 6,
-                "item_name": "flank vest",
-                "item_image": "flank.jpg",
-                "item_type": "armor",
-                "item_attack": 1,
-                "item_defense": 1,
-                "item_decay": 100,
-                "item_repair": 25,
-                "item_cost": 50,
-                "item_sell": 25,
-                "level_required": 1
-            },
-            
-            {
-                "id": 7,
-                "item_name": "28 cadillac sedan",
-                "item_image": "dd.png",
-                "item_type": "vehicle",
-                "item_attack": 100,
-                "item_defense": 0,
-                "item_decay": 1,
-                "item_repair": 5000000,
-                "item_cost": 10000000,
-                "item_sell": 5000000,
-                "level_required": 1
-            },
-            
-            {
-                "id": 8,
-                "item_name": "29 studebaker",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 0,
-                "item_defense": 100,
-                "item_decay": 1,
-                "item_repair": 5000000,
-                "item_cost": 10000000,
-                "item_sell": 5000000,
-                "level_required": 1
-            },
-            
-            {
-                "id": 9,
-                "item_name": "31 buick",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 1,
-                "item_defense": 1,
-                "item_decay": 300,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 1
-            },
-            
-            {
-                "id": 10,
-                "item_name": "vito genovese",
-                "item_image": "genovese.jpg",
-                "item_type": "henchmen",
-                "item_attack": 100,
-                "item_defense": 0,
-                "item_decay": 1,
-                "item_repair": 5000000,
-                "item_cost": 10000000,
-                "item_sell": 5000000,
-                "level_required": 1
-            },
-            
-            {
-                "id": 11,
-                "item_name": "albert anastasia",
-                "item_image": "anastasia.jpg",
-                "item_type": "henchmen",
-                "item_attack": 0,
-                "item_defense": 100,
-                "item_decay": 1,
-                "item_repair": 5000000,
-                "item_cost": 10000000,
-                "item_sell": 5000000,
-                "level_required": 1
-            },
-            
-            {
-                "id": 12,
-                "item_name": "henry hill",
-                "item_image": "hill.jpg",
-                "item_type": "henchmen",
-                "item_attack": 1,
-                "item_defense": 1,
-                "item_decay": 300,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 1
-            },
-            
-            {
-                "id": 13,
-                "item_name": "meat cleaver",
-                "item_image": "cleaver.png",
-                "item_type": "weapon",
-                "item_attack": 7,
-                "item_defense": 5,
-                "item_decay": 250,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 10
-            },
-            
-            {
-                "id": 14,
-                "item_name": "baseball bat",
-                "item_image": "bat.png",
-                "item_type": "weapon",
-                "item_attack": 5,
-                "item_defense": 7,
-                "item_decay": 250,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 10
-            },
-            
-            {
-                "id": 15,
-                "item_name": "32 ford model 18",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 7,
-                "item_defense": 5,
-                "item_decay": 250,
-                "item_repair": 500,
-                "item_cost": 1000,
-                "item_sell": 500,
-                "level_required": 10
-            },
-            
-            {
-                "id": 16,
-                "item_name": "36 chevy standard",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 5,
-                "item_defense": 7,
-                "item_decay": 250,
-                "item_repair": 500,
-                "item_cost": 1000,
-                "item_sell": 500,
-                "level_required": 10
-            },
-            
-            {
-                "id": 17,
-                "item_name": "chainsaw",
-                "item_image": "chainsaw.png",
-                "item_type": "weapon",
-                "item_attack": 10,
-                "item_defense": 7,
-                "item_decay": 100,
-                "item_repair": 125,
-                "item_cost": 250,
-                "item_sell": 125,
-                "level_required": 15
-            },
-            
-            {
-                "id": 18,
-                "item_name": "trenchcoat",
-                "item_image": "trenchcoat.jpg",
-                "item_type": "armor",
-                "item_attack": 7,
-                "item_defense": 5,
-                "item_decay": 250,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 15
-            },
-            
-            {
-                "id": 19,
-                "item_name": "combat boots",
-                "item_image": "cboots.png",
-                "item_type": "armor",
-                "item_attack": 5,
-                "item_defense": 7,
-                "item_decay": 250,
-                "item_repair": 50,
-                "item_cost": 100,
-                "item_sell": 50,
-                "level_required": 15
-            },
-            
-            {
-                "id": 20,
-                "item_name": "kevlar vest",
-                "item_image": "kvest.jpg",
-                "item_type": "armor",
-                "item_attack": 7,
-                "item_defense": 10,
-                "item_decay": 100,
-                "item_repair": 125,
-                "item_cost": 250,
-                "item_sell": 125,
-                "level_required": 15
-            },
-            
-            {
-                "id": 21,
-                "item_name": "37 benz 260d",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 10,
-                "item_defense": 12,
-                "item_decay": 250,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 15
-            },
-            
-            {
-                "id": 22,
-                "item_name": "41 lincoln",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 12,
-                "item_defense": 10,
-                "item_decay": 250,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 15
-            },
-            
-            {
-                "id": 23,
-                "item_name": "crowbar",
-                "item_image": "crowbar.png",
-                "item_type": "weapon",
-                "item_attack": 10,
-                "item_defense": 10,
-                "item_decay": 0,
-                "item_repair": 0,
-                "item_cost": 1000000,
-                "item_sell": 500000,
-                "level_required": 25
-            },
-            
-            {
-                "id": 24,
-                "item_name": "22 pistol",
-                "item_image": "22pistol.jpg",
-                "item_type": "weapon",
-                "item_attack": 10,
-                "item_defense": 10,
-                "item_decay": 200,
-                "item_repair": 250,
-                "item_cost": 500,
-                "item_sell": 250,
-                "level_required": 25
-            },
-            
-            {
-                "id": 25,
-                "item_name": "tac vest",
-                "item_image": "tac.jpg",
-                "item_type": "armor",
-                "item_attack": 10,
-                "item_defense": 10,
-                "item_decay": 0,
-                "item_repair": 0,
-                "item_cost": 1000000,
-                "item_sell": 500000,
-                "level_required": 25
-            },
-            
-            {
-                "id": 26,
-                "item_name": "kevlar jeans",
-                "item_image": "kpants.jpg",
-                "item_type": "jeans",
-                "item_attack": 10,
-                "item_defense": 10,
-                "item_decay": 200,
-                "item_repair": 250,
-                "item_cost": 500,
-                "item_sell": 250,
-                "level_required": 25
-            },
-            
-            {
-                "id": 27,
-                "item_name": "61 lincoln",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 10,
-                "item_defense": 15,
-                "item_decay": 100,
-                "item_repair": 500,
-                "item_cost": 1000,
-                "item_sell": 500,
-                "level_required": 25
-            },
-            
-            {
-                "id": 28,
-                "item_name": "65 buick",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 15,
-                "item_defense": 10,
-                "item_decay": 100,
-                "item_repair": 500,
-                "item_cost": 1000,
-                "item_sell": 500,
-                "level_required": 25
-            },
-            
-            {
-                "id": 29,
-                "item_name": "sam giancana",
-                "item_image": "giancana.jpg",
-                "item_type": "henchmen",
-                "item_attack": 7,
-                "item_defense": 5,
-                "item_decay": 200,
-                "item_repair": 700,
-                "item_cost": 1400,
-                "item_sell": 700,
-                "level_required": 25
-            },
-            
-            {
-                "id": 30,
-                "item_name": "mickey cohen",
-                "item_image": "cohen.jpg",
-                "item_type": "henchmen",
-                "item_attack": 5,
-                "item_defense": 7,
-                "item_decay": 200,
-                "item_repair": 700,
-                "item_cost": 1400,
-                "item_sell": 700,
-                "level_required": 25
-            },
-            
-            {
-                "id": 31,
-                "item_name": "9mm pistol",
-                "item_image": "9pistol.jpg",
-                "item_type": "weapon",
-                "item_attack": 10,
-                "item_defense": 12,
-                "item_decay": 300,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 50
-            },
-            
-            {
-                "id": 32,
-                "item_name": "1911",
-                "item_image": "1911.jpg",
-                "item_type": "weapon",
-                "item_attack": 12,
-                "item_defense": 10,
-                "item_decay": 300,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 50
-            },
-            
-            {
-                "id": 33,
-                "item_name": "kevlar mask",
-                "item_image": "kmask.jpg",
-                "item_type": "armor",
-                "item_attack": 12,
-                "item_defense": 10,
-                "item_decay": 300,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 50
-            },
-            
-            {
-                "id": 34,
-                "item_name": "full body kevlar",
-                "item_image": "fbk.jpg",
-                "item_type": "armor",
-                "item_attack": 10,
-                "item_defense": 12,
-                "item_decay": 300,
-                "item_repair": 350,
-                "item_cost": 700,
-                "item_sell": 350,
-                "level_required": 50
-            },
-            
-            {
-                "id": 35,
-                "item_name": "69 lincoln mark III",
-                "item_image": "car.jpg",
-                "item_type": "vehicle",
-                "item_attack": 12,
-                "item_defense": 15,
-                "item_decay": 200,
-                "item_repair": 2500,
-                "item_cost": 5000,
-                "item_sell": 2500,
-                "level_required": 50
-            },
-            
-            {
-                "id": 36,
-                "item_name": "machine gun kelly",
-                "item_image": "mgk.jpg",
-                "item_type": "henchmen",
-                "item_attack": 10,
-                "item_defense": 12,
-                "item_decay": 100,
-                "item_repair": 2500,
-                "item_cost": 5000,
-                "item_sell": 2500,
-                "level_required": 50
-            },
-            
-            {
-                "id": 37,
-                "item_name": "meyer lansky",
-                "item_image": "lansky.jpg",
-                "item_type": "henchmen",
-                "item_attack": 12,
-                "item_defense": 10,
-                "item_decay": 100,
-                "item_repair": 2500,
-                "item_cost": 5000,
-                "item_sell": 2500,
-                "level_required": 50
-            },
-            
-            {
-                "id": 38,
-                "item_name": "john dillinger",
-                "item_image": "dillinger.jpg",
-                "item_type": "henchmen",
-                "item_attack": 12,
-                "item_defense": 15,
-                "item_decay": 100,
-                "item_repair": 5000,
-                "item_cost": 10000,
-                "item_sell": 5000,
-                "level_required": 100
-            },
-            
-            {
-                "id": 39,
-                "item_name": "bugsy siegel",
-                "item_image": "bugsy.jpg",
-                "item_type": "henchmen",
-                "item_attack": 15,
-                "item_defense": 12,
-                "item_decay": 100,
-                "item_repair": 5000,
-                "item_cost": 10000,
-                "item_sell": 5000,
-                "level_required": 100
-            },
-            
-            {
-                "id": 40,
-                "item_name": "al capone",
-                "item_image": "capone.jpg",
-                "item_type": "henchmen",
-                "item_attack": 10,
-                "item_defense": 10,
-                "item_decay": 0,
-                "item_repair": 0,
-                "item_cost": 100000000,
-                "item_sell": 50000000,
-                "level_required": 250
-            }         
+        {
+            "id": 6,
+            "item_name": "flank vest",
+            "item_image": "flank.png",
+            "item_type": "armor",
+            "item_attack": 1,
+            "item_defense": 1,
+            "item_decay": 100,
+            "item_repair": 25,
+            "item_cost": 50,
+            "item_sell": 25,
+            "level_required": 1
+        },
+        
+        {
+            "id": 7,
+            "item_name": "28 cadillac sedan",
+            "item_image": "28cadillac.png",
+            "item_type": "vehicle",
+            "item_attack": 100,
+            "item_defense": 0,
+            "item_decay": 1,
+            "item_repair": 5000000,
+            "item_cost": 10000000,
+            "item_sell": 5000000,
+            "level_required": 1
+        },
+        
+        {
+            "id": 8,
+            "item_name": "29 studebaker",
+            "item_image": "29studebaker.png",
+            "item_type": "vehicle",
+            "item_attack": 0,
+            "item_defense": 100,
+            "item_decay": 1,
+            "item_repair": 5000000,
+            "item_cost": 10000000,
+            "item_sell": 5000000,
+            "level_required": 1
+        },
+        
+        {
+            "id": 9,
+            "item_name": "31 buick",
+            "item_image": "31buick.png",
+            "item_type": "vehicle",
+            "item_attack": 1,
+            "item_defense": 1,
+            "item_decay": 300,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 1
+        },
+        
+        {
+            "id": 10,
+            "item_name": "vito genovese",
+            "item_image": "genovese.png",
+            "item_type": "henchmen",
+            "item_attack": 100,
+            "item_defense": 0,
+            "item_decay": 1,
+            "item_repair": 5000000,
+            "item_cost": 10000000,
+            "item_sell": 5000000,
+            "level_required": 1
+        },
+        
+        {
+            "id": 11,
+            "item_name": "albert anastasia",
+            "item_image": "anastasia.png",
+            "item_type": "henchmen",
+            "item_attack": 0,
+            "item_defense": 100,
+            "item_decay": 1,
+            "item_repair": 5000000,
+            "item_cost": 10000000,
+            "item_sell": 5000000,
+            "level_required": 1
+        },
+        
+        {
+            "id": 12,
+            "item_name": "henry hill",
+            "item_image": "hill.png",
+            "item_type": "henchmen",
+            "item_attack": 1,
+            "item_defense": 1,
+            "item_decay": 300,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 1
+        },
+        
+        {
+            "id": 13,
+            "item_name": "meat cleaver",
+            "item_image": "cleaver2.png",
+            "item_type": "weapon",
+            "item_attack": 7,
+            "item_defense": 5,
+            "item_decay": 250,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 10
+        },
+        
+        {
+            "id": 14,
+            "item_name": "baseball bat",
+            "item_image": "bat2.png",
+            "item_type": "weapon",
+            "item_attack": 5,
+            "item_defense": 7,
+            "item_decay": 250,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 10
+        },
+        
+        {
+            "id": 15,
+            "item_name": "32 ford model 18",
+            "item_image": "32ford.png",
+            "item_type": "vehicle",
+            "item_attack": 7,
+            "item_defense": 5,
+            "item_decay": 250,
+            "item_repair": 500,
+            "item_cost": 1000,
+            "item_sell": 500,
+            "level_required": 10
+        },
+        
+        {
+            "id": 16,
+            "item_name": "36 chevy standard",
+            "item_image": "36chevy.png",
+            "item_type": "vehicle",
+            "item_attack": 5,
+            "item_defense": 7,
+            "item_decay": 250,
+            "item_repair": 500,
+            "item_cost": 1000,
+            "item_sell": 500,
+            "level_required": 10
+        },
+        
+        {
+            "id": 17,
+            "item_name": "chainsaw",
+            "item_image": "chainsaw.png",
+            "item_type": "weapon",
+            "item_attack": 10,
+            "item_defense": 7,
+            "item_decay": 100,
+            "item_repair": 125,
+            "item_cost": 250,
+            "item_sell": 125,
+            "level_required": 15
+        },
+        
+        {
+            "id": 18,
+            "item_name": "trenchcoat",
+            "item_image": "trench.png",
+            "item_type": "armor",
+            "item_attack": 7,
+            "item_defense": 5,
+            "item_decay": 250,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 15
+        },
+        
+        {
+            "id": 19,
+            "item_name": "combat boots",
+            "item_image": "boots.png",
+            "item_type": "armor",
+            "item_attack": 5,
+            "item_defense": 7,
+            "item_decay": 250,
+            "item_repair": 50,
+            "item_cost": 100,
+            "item_sell": 50,
+            "level_required": 15
+        },
+        
+        {
+            "id": 20,
+            "item_name": "kevlar vest",
+            "item_image": "kvest.png",
+            "item_type": "armor",
+            "item_attack": 7,
+            "item_defense": 10,
+            "item_decay": 100,
+            "item_repair": 125,
+            "item_cost": 250,
+            "item_sell": 125,
+            "level_required": 15
+        },
+        
+        {
+            "id": 21,
+            "item_name": "37 benz 260d",
+            "item_image": "37benz.png",
+            "item_type": "vehicle",
+            "item_attack": 10,
+            "item_defense": 12,
+            "item_decay": 250,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 15
+        },
+        
+        {
+            "id": 22,
+            "item_name": "41 lincoln",
+            "item_image": "41lincoln.png",
+            "item_type": "vehicle",
+            "item_attack": 12,
+            "item_defense": 10,
+            "item_decay": 250,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 15
+        },
+        
+        {
+            "id": 23,
+            "item_name": "crowbar",
+            "item_image": "crowbar.png",
+            "item_type": "weapon",
+            "item_attack": 10,
+            "item_defense": 10,
+            "item_decay": 0,
+            "item_repair": 0,
+            "item_cost": 1000000,
+            "item_sell": 500000,
+            "level_required": 25
+        },
+        
+        {
+            "id": 24,
+            "item_name": "22 pistol",
+            "item_image": "22pistol.png",
+            "item_type": "weapon",
+            "item_attack": 10,
+            "item_defense": 10,
+            "item_decay": 200,
+            "item_repair": 250,
+            "item_cost": 500,
+            "item_sell": 250,
+            "level_required": 25
+        },
+        
+        {
+            "id": 25,
+            "item_name": "tac vest",
+            "item_image": "tac.png",
+            "item_type": "armor",
+            "item_attack": 10,
+            "item_defense": 10,
+            "item_decay": 0,
+            "item_repair": 0,
+            "item_cost": 1000000,
+            "item_sell": 500000,
+            "level_required": 25
+        },
+        
+        {
+            "id": 26,
+            "item_name": "kevlar jeans",
+            "item_image": "kpants.png",
+            "item_type": "jeans",
+            "item_attack": 10,
+            "item_defense": 10,
+            "item_decay": 200,
+            "item_repair": 250,
+            "item_cost": 500,
+            "item_sell": 250,
+            "level_required": 25
+        },
+        
+        {
+            "id": 27,
+            "item_name": "61 lincoln",
+            "item_image": "61lincoln.png",
+            "item_type": "vehicle",
+            "item_attack": 10,
+            "item_defense": 15,
+            "item_decay": 100,
+            "item_repair": 500,
+            "item_cost": 1000,
+            "item_sell": 500,
+            "level_required": 25
+        },
+        
+        {
+            "id": 28,
+            "item_name": "65 buick",
+            "item_image": "65buick.png",
+            "item_type": "vehicle",
+            "item_attack": 15,
+            "item_defense": 10,
+            "item_decay": 100,
+            "item_repair": 500,
+            "item_cost": 1000,
+            "item_sell": 500,
+            "level_required": 25
+        },
+        
+        {
+            "id": 29,
+            "item_name": "sam giancana",
+            "item_image": "giancana.png",
+            "item_type": "henchmen",
+            "item_attack": 7,
+            "item_defense": 5,
+            "item_decay": 200,
+            "item_repair": 700,
+            "item_cost": 1400,
+            "item_sell": 700,
+            "level_required": 25
+        },
+        
+        {
+            "id": 30,
+            "item_name": "mickey cohen",
+            "item_image": "cohen.png",
+            "item_type": "henchmen",
+            "item_attack": 5,
+            "item_defense": 7,
+            "item_decay": 200,
+            "item_repair": 700,
+            "item_cost": 1400,
+            "item_sell": 700,
+            "level_required": 25
+        },
+        
+        {
+            "id": 31,
+            "item_name": "9mm pistol",
+            "item_image": "9pistol.png",
+            "item_type": "weapon",
+            "item_attack": 10,
+            "item_defense": 12,
+            "item_decay": 300,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 50
+        },
+        
+        {
+            "id": 32,
+            "item_name": "1911",
+            "item_image": "1911.png",
+            "item_type": "weapon",
+            "item_attack": 12,
+            "item_defense": 10,
+            "item_decay": 300,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 50
+        },
+        
+        {
+            "id": 33,
+            "item_name": "kevlar mask",
+            "item_image": "kmask.png",
+            "item_type": "armor",
+            "item_attack": 12,
+            "item_defense": 10,
+            "item_decay": 300,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 50
+        },
+        
+        {
+            "id": 34,
+            "item_name": "full body kevlar",
+            "item_image": "fbk.png",
+            "item_type": "armor",
+            "item_attack": 10,
+            "item_defense": 12,
+            "item_decay": 300,
+            "item_repair": 350,
+            "item_cost": 700,
+            "item_sell": 350,
+            "level_required": 50
+        },
+        
+        {
+            "id": 35,
+            "item_name": "69 lincoln mark III",
+            "item_image": "69lincoln.png",
+            "item_type": "vehicle",
+            "item_attack": 12,
+            "item_defense": 15,
+            "item_decay": 200,
+            "item_repair": 2500,
+            "item_cost": 5000,
+            "item_sell": 2500,
+            "level_required": 50
+        },
+        
+        {
+            "id": 36,
+            "item_name": "machine gun kelly",
+            "item_image": "mgk.png",
+            "item_type": "henchmen",
+            "item_attack": 10,
+            "item_defense": 12,
+            "item_decay": 100,
+            "item_repair": 2500,
+            "item_cost": 5000,
+            "item_sell": 2500,
+            "level_required": 50
+        },
+        
+        {
+            "id": 37,
+            "item_name": "meyer lansky",
+            "item_image": "lansky.png",
+            "item_type": "henchmen",
+            "item_attack": 12,
+            "item_defense": 10,
+            "item_decay": 100,
+            "item_repair": 2500,
+            "item_cost": 5000,
+            "item_sell": 2500,
+            "level_required": 50
+        },
+        
+        {
+            "id": 38,
+            "item_name": "john dillinger",
+            "item_image": "dillinger.png",
+            "item_type": "henchmen",
+            "item_attack": 12,
+            "item_defense": 15,
+            "item_decay": 100,
+            "item_repair": 5000,
+            "item_cost": 10000,
+            "item_sell": 5000,
+            "level_required": 100
+        },
+        
+        {
+            "id": 39,
+            "item_name": "bugsy siegel",
+            "item_image": "bugsy.png",
+            "item_type": "henchmen",
+            "item_attack": 15,
+            "item_defense": 12,
+            "item_decay": 100,
+            "item_repair": 5000,
+            "item_cost": 10000,
+            "item_sell": 5000,
+            "level_required": 100
+        },
+        
+        {
+            "id": 40,
+            "item_name": "al capone",
+            "item_image": "capone.png",
+            "item_type": "henchmen",
+            "item_attack": 10,
+            "item_defense": 10,
+            "item_decay": 0,
+            "item_repair": 0,
+            "item_cost": 100000000,
+            "item_sell": 50000000,
+            "level_required": 250
+        }         
     ]
   }
