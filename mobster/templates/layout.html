@@ -30,7 +30,7 @@
 	</head>
 
 	<body>
-
+        
         <!-- NavBar -->
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark-red fixed-top">
@@ -47,7 +47,12 @@
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
                             {% if current_user.is_authenticated %}
+                            <a class="nav-item nav-link" href="#"><span hidden id="user">{{current_user.id}}</span></a>
                                 <a class="nav-item nav-link" href="{{ url_for('bank') }}">Cash: ${{ '{:,}'.format(current_user.cash_on_hand) }}</a>
+                                <a class="nav-item nav-link" href="{{ url_for('hospital') }}">
+                                    HP:<span id="current_health">{{ current_user.stats.user_current_health }}</span>/
+                                    <span id="max_health">{{ current_user.stats.user_max_health }}</span></a>
+                                <a class="nav-item nav-link" href="#"><span hidden id="clock">0</span></a>
                                 <a class="nav-item nav-link" href="{{ url_for('account') }}">My Account</a>
                                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                             {% else %}
@@ -111,7 +116,9 @@
                     <!-- Main Content Block -->
                     {% block body %}{% endblock %}
                 </div>
-                
+
+        <!-- Custom JavaScript -->     
+        <script src="{{ url_for('static', filename='timers.js') }}"></script>   
        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

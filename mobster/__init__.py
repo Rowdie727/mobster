@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
+from threading import Thread
 
 my_project_path = 'C:\\Users\crowd\Desktop\mobties'
 on_server = True
@@ -34,4 +35,5 @@ app.config['MAIL_USERNAME'] = config.get('MOB_EMAIL')
 app.config['MAIL_PASSWORD'] = config.get('MOB_PASS')
 mail = Mail(app)
 migrate = Migrate(app, db)
+thread = Thread()
 from mobster import routes 
