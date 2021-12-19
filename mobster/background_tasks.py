@@ -18,7 +18,7 @@ def background_thread():
         sleep(5)
         for user in User.query.all():
             if user.stats.user_current_health < user.stats.user_max_health:
-                wait_time = 5   #((user.stats.user_max_health - user.stats.user_current_health))
+                wait_time = ((user.stats.user_max_health - user.stats.user_current_health) * 12)
                 #print(f'{user.username}, {user.stats.user_current_health}, {user.stats.user_max_health}')
                 health_thread = Thread(target=fill_health, args=[user.id, wait_time])
                 health_thread.daemon = True

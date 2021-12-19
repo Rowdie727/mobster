@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let current_health = document.querySelector('span#current_health');
     let max_health = document.querySelector('span#max_health');
     let user = document.querySelector('#user');
-    //let time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 12)
-    let time = 10;
+    let time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 12)
     let clock = document.querySelector('#clock');
     
     if (Number(current_health.innerHTML) < Number(max_health.innerHTML)) {
