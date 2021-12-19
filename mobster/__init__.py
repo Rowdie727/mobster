@@ -36,4 +36,9 @@ app.config['MAIL_PASSWORD'] = config.get('MOB_PASS')
 mail = Mail(app)
 migrate = Migrate(app, db)
 thread = Thread()
+def start_threads():
+    from mobster.background_tasks import background_thread
+    thread = Thread(target=background_thread)
+    thread.daemon = True
+    thread.start()
 from mobster import routes 
