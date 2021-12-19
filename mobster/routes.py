@@ -1,5 +1,5 @@
 import os
-from flask import render_template, url_for, flash, redirect, request, abort
+from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from mobster import app, db, bcrypt
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm
 from mobster.models import User, Post, Item, User_Stats, Turf
@@ -14,9 +14,23 @@ def schedule():
     db.session.commit()
     print("Users successfully paid!")
 
+# Convert data to JSON
+@app.route("/user_json")
+def data_json():
+    user = [
+        {
+            "id": current_user.id,
+            "username": current_user.username,
+            "current_health": current_user.stats.user_current_health,
+            "max_health": current_user.stats.user_max_health
+        }
+    ]
+    return jsonify(user)
+
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def index():
+    user = data_json()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
     # Create Posts
@@ -28,7 +42,7 @@ def index():
         flash('Your post has been created!', 'danger')
         return redirect(url_for('index'))
     elif request.method == 'GET':
-        return render_template('index.html', posts=posts, form=form, title='Home', legend='Create Post')
+        return render_template('index.html', matches=user.json, posts=posts, form=form, title='Home', legend='Create Post')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -389,6 +403,9 @@ def hospital_punch(id):
     if form.punch_submit.data and user.get_punched():
         post = Post(user_id=current_user.id, title=f"{current_user.username} just punched {user.username}!", content=f"{user.username} just got rocked for 10hp!")
         db.session.add(post)
+        db.session.commit()
+    else:
+        flash('Chill man  he\'s dead already!', 'danger')
         db.session.commit()
     return redirect(url_for('hospital'))
     

@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     let current_health = document.querySelector('span#current_health');
     let max_health = document.querySelector('span#max_health');
-    let user = document.querySelector('#user');
-    let time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 12)
+    let time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 20)
     let clock = document.querySelector('#clock');
     
     if (Number(current_health.innerHTML) < Number(max_health.innerHTML)) {
@@ -10,8 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (time < 1) {
                 clearInterval(interval);
                 clock.style.display = 'none';
-                current_health.innerHTML = max_health.innerHTML;
-                alert('You have been healed!')
             }
             clock.hidden = false;
             clock.innerHTML = time + 's';
@@ -20,3 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000)
     }
 });
+
+
+setInterval(function() {
+    fetch('/user_json').then(
+        response => response.json()
+    ).then(
+        data => 
+            data.forEach(match => 
+                updateElement(match)    
+            )
+    )
+}, 1000
+
+);
+
+function updateElement(match) {
+    Object.entries(match).forEach(([k,v]) => {
+        element = document.getElementById(k);
+        previousValue = element.innerHTML;
+        if (previousValue !== v.toString()) {
+            element.innerHTML = v.toString();
+        }
+    })
+}

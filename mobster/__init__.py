@@ -36,9 +36,13 @@ app.config['MAIL_PASSWORD'] = config.get('MOB_PASS')
 mail = Mail(app)
 migrate = Migrate(app, db)
 thread = Thread()
+
+# Start background thread for healing, energy and stamina regen
 def start_threads():
     from mobster.background_tasks import background_thread
     thread = Thread(target=background_thread)
     thread.daemon = True
     thread.start()
+
+# Import the routes
 from mobster import routes 

@@ -13,7 +13,7 @@
       		
     <div class="page-container">
         <div class="page-container-head">
-          	<p>Current Health: {{ current_user.stats.user_current_health }} / {{ current_user.stats.user_max_health }}</p>
+          	<p>Current Health: <span id=current_health>{{ current_user.stats.user_current_health }}</span> / {{ current_user.stats.user_max_health }}</p>
         </div>
         <form action="#" method="POST">
 			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->

@@ -108,11 +108,12 @@ class User(db.Model, UserMixin):
             self.stats.user_current_health += heal_by
             
     def get_punched(self):
-        self.stats.user_current_health -= 10
-        if self.stats.user_current_health < 0:
-                self.stats.user_current_health = 0
-                return False
-        return True
+        if self.stats.user_current_health - 10 < 0:
+            self.stats.user_current_health = 0
+            return False
+        else:
+            self.stats.user_current_health -= 10
+            return True
         
     def is_in_icu(self):
         if self.stats.user_in_icu == True:
@@ -164,6 +165,7 @@ class User_Stats(db.Model):
     user_current_health = db.Column(db.Integer, default=100)
     user_max_health = db.Column(db.Integer, default=100)
     user_in_icu = db.Column(db.Boolean, default=False)
+    user_health_thread_running = db.Column(db.Boolean, default=False)
     user_experience = db.Column(db.Integer, nullable=False, default=0)
     user_total_income = db.Column(db.Integer, default=0)
     experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
