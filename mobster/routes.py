@@ -1,4 +1,5 @@
 import os
+import random
 from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from mobster import app, db, bcrypt
 from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm, DoMissionForm
@@ -22,7 +23,10 @@ def data_json():
             "id": current_user.id,
             "username": current_user.username,
             "current_health": current_user.stats.user_current_health,
-            "max_health": current_user.stats.user_max_health
+            "max_health": current_user.stats.user_max_health,
+            "current_energy": current_user.stats.user_current_energy,
+            "max_energy": current_user.stats.user_max_energy,
+            "mission_current_stage": current_user.stats.user_current_mission_stage
         }
     ]
     return jsonify(user)
@@ -303,12 +307,44 @@ def godfather():
 def hitlist():
     return render_template('game_templates/hitlist.html', title='Hitlist')
     
-@app.route("/missions")
+@app.route("/missions", methods=['GET', 'POST'])
 @login_required
 def missions():
     page = request.args.get('page', 1, type=int)
     missions = Missions.query.order_by(Missions.id).where(Missions.id == current_user.stats.user_current_mission_id).paginate(page=page, per_page=5)
     form = DoMissionForm()
+    if form.validate_on_submit():
+        current_mission_id = current_user.stats.user_current_mission_id
+        current_mission = Missions.query.get(current_mission_id)
+        if current_user.stats.user_current_energy >= current_mission.mission_required_energy:
+            mastery_complete = False
+            current_user.stats.user_current_energy -= current_mission.mission_required_energy
+            current_user.stats.user_current_mission_stage += 1
+            cash_reward = random.randint(current_mission.mission_reward_min_cash, current_mission.mission_reward_max_cash)
+            xp_reward = random.randint(current_mission.mission_reward_min_xp, current_mission.mission_reward_max_xp)
+            current_user.cash_on_hand += cash_reward
+            current_user.stats.user_experience += xp_reward
+            complete_message = f"Congrats! You completed {current_mission.mission_name}! You earned ${cash_reward} and {xp_reward}xp but used {current_mission.mission_required_energy} energy!"
+            db.session.commit()
+            if current_user.stats.user_current_mission_stage > current_mission.mission_required_mastery:
+                mastery_complete = True
+                current_user.stats.user_current_mission_id += 1
+                current_user.stats.user_current_mission_stage = 1
+                mastery_cash_reward = random.randint(current_mission.mission_mastery_reward_min_cash, current_mission.mission_mastery_reward_max_cash)
+                mastery_xp_reward = random.randint(current_mission.mission_mastery_reward_min_xp, current_mission.mission_mastery_reward_max_xp)
+                current_user.cash_on_hand += mastery_cash_reward
+                current_user.stats.user_experience += mastery_xp_reward
+                mastery_message = f"Congrats! You mastered {current_mission.mission_name}! You earned ${mastery_cash_reward} and {mastery_xp_reward}xp!  A new mission is now available!"
+                db.session.commit()
+            if mastery_complete:
+                flash(complete_message, 'danger')
+                flash(mastery_message, 'danger')
+            else:
+                flash(complete_message, 'danger')
+            return redirect(url_for('missions'))
+        if current_user.stats.user_current_energy < current_mission.mission_required_energy:
+            flash(f"You don't have enough energy! You need {current_mission.mission_required_energy} energy to {current_mission.mission_name}!", 'danger')
+            return redirect(url_for('missions'))
     return render_template('game_templates/missions.html', title='Missions', missions=missions, form=form)
     
 @app.route("/turf")

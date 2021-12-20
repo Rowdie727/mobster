@@ -1,18 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
     let current_health = document.querySelector('span#current_health');
     let max_health = document.querySelector('span#max_health');
-    let time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 20)
-    let clock = document.querySelector('#clock');
+    let health_time = ((Number(max_health.innerHTML) - Number(current_health.innerHTML)) * 20)
+    let health_clock = document.querySelector('#health_clock');
+    let energy_time = ((Number(max_energy.innerHTML) - Number(current_energy.innerHTML)) * 20)
+    let energy_clock = document.querySelector('#energy_clock');
     
     if (Number(current_health.innerHTML) < Number(max_health.innerHTML)) {
         const interval = setInterval(() => {
-            if (time < 1) {
+            if (health_time < 1) {
                 clearInterval(interval);
-                clock.style.display = 'none';
+                health_clock.style.display = 'none';
             }
-            clock.hidden = false;
-            clock.innerHTML = time + 's';
-            time--;
+            health_clock.hidden = false;
+            health_clock.innerHTML = health_time + 's';
+            health_time--;
+
+        }, 1000)
+    }
+
+    if (Number(current_energy.innerHTML) < Number(max_energy.innerHTML)) {
+        const interval = setInterval(() => {
+            if (energy_time < 1) {
+                clearInterval(interval);
+                energy_clock.style.display = 'none';
+            }
+            energy_clock.hidden = false;
+            energy_clock.innerHTML = energy_time + 's';
+            energy_time--;
 
         }, 1000)
     }

@@ -11,7 +11,7 @@
 		<!-- Display items(START) -->
 		{% for mission in missions.items %}
 			
-			<form method="GET" action="#">
+			<form method="POST" action="#">
 				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
 				{{ form.hidden_tag() }}
 				<fieldset>
@@ -22,9 +22,10 @@
 						</div>
 						<div class="page-container-body">
 							<h6>{{ mission.mission_name }}</h6>
-              <h6>Current Stage: {{ current_user.stats.user_current_mission_stage }}</h6>
+              				<h6>Current Stage: <span id="mission_current_tier">({{ mission.mission_tier }})</span> - <span id="mission_current_stage">{{ current_user.stats.user_current_mission_stage }}</span>/<span id="mission_required_mastery">{{ mission.mission_required_mastery }}</span></h6>
 							<h6>Energy Required: {{ mission.mission_required_energy}}</h6>
 							<h6>Earns: ${{ mission.mission_reward_min_cash }}-${{ mission.mission_reward_max_cash }}</h6>
+							<h6>Earns: {{ mission.mission_reward_min_xp }}xp-{{ mission.mission_reward_max_xp }}xp</h6>
 							<p>{{form.mission_submit(class="btn btn-outline-danger")}}</p>
 						</div>
 					</div>
