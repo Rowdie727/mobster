@@ -304,10 +304,10 @@ def hitlist():
     return render_template('game_templates/hitlist.html', title='Hitlist')
     
 @app.route("/missions")
+@login_required
 def missions():
     page = request.args.get('page', 1, type=int)
     missions = Missions.query.order_by(Missions.id).where(Missions.id == current_user.stats.user_current_mission_id).paginate(page=page, per_page=5)
-    #missions = Missions.query.all().paginate(page=page, per_page=5) #order_by(Missions.id).where(current_user.stats.user_current_mission_id == Missions.id)
     form = DoMissionForm()
     return render_template('game_templates/missions.html', title='Missions', missions=missions, form=form)
     
