@@ -168,6 +168,8 @@ class User_Stats(db.Model):
     user_health_thread_running = db.Column(db.Boolean, default=False)
     user_experience = db.Column(db.Integer, nullable=False, default=0)
     user_total_income = db.Column(db.Integer, default=0)
+    user_current_mission_id = db.Column(db.Integer, default=1)
+    user_current_mission_stage = db.Column(db.Integer, default=1)
     experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
@@ -197,3 +199,32 @@ class Turf(db.Model):
     def __repr__(self):
         return f"Turf(turf_name={self.turf_name}, turf_cost={self.turf_cost}, turf_sell={self.turf_sell}, turf_income={self.turf_income}, level_required={self.level_required}"
 
+class Missions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    mission_region = db.Column(db.String(128), nullable=False)
+    mission_name = db.Column(db.String(128), nullable=False, unique=True)
+    mission_image = db.Column(db.String(128), nullable=False, default='default.jpg')
+    mission_tier = db.Column(db.String(24), nullable=False)
+    mission_required_mastery = db.Column(db.Integer, nullable=False)
+    mission_required_energy = db.Column(db.Integer, nullable=False)
+    mission_required_item_id = db.Column(db.Integer, nullable=False)
+    mission_required_mobc = db.Column(db.Integer, nullable=False)
+    mission_reward_min_xp = db.Column(db.Integer, nullable=False)
+    mission_reward_max_xp = db.Column(db.Integer, nullable=False)
+    mission_reward_min_cash = db.Column(db.Integer, nullable=False)
+    mission_reward_max_cash = db.Column(db.Integer, nullable=False)
+    mission_reward_skill_points = db.Column(db.Integer, nullable=False)
+    mission_reward_mobc = db.Column(db.Integer, nullable=False)
+    mission_reward_item_id = db.Column(db.Integer, nullable=False)
+    mission_reward_turf_id = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_min_xp = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_max_xp = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_min_cash = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_max_cash = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_skill_points = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_mobc = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_item_id = db.Column(db.Integer, nullable=False)
+    mission_mastery_reward_turf_id = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Mission(id={self.id}, name={self.mission_name})"

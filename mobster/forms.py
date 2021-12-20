@@ -109,3 +109,6 @@ class TurfBuyForm(FlaskForm):
     quantity = IntegerField('Quantity', validators=[NumberRange(min=1)])
     buy_submit = SubmitField('Buy')
     sell_submit = SubmitField('Sell')
+
+class DoMissionForm(FlaskForm):
+    mission_submit = SubmitField('Do Job')

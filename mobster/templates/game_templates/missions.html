@@ -2,43 +2,40 @@
 
 {% block body %}
 	<div class="page-container">
-	 <div>
-	  <img src="{{url_for('static',filename='images/job.png')}}" width="300" height="180">
-	 </div>
-<br>
-    
-         <div>
-          <h3><b>MOB JOBS</b></h3>
-           
-            <p> SEA SIDE WALK</p>
 
-             <div class=page-container>
-              <div class=page-container-head><p>Wash Dishes at The Harvard Inn</p></div>
-               <p>Take a job as a Dishwasher at the Harvard</p>
-               <p>Requires: 3 Energy</p>
-               <p>Earns: $100, 0.001 $MOBC, 1xp</p>   
-               <button class="button" type="button">Do Job</button>
-             </div>
-<br>
-             <div class=page-container>
-              <div class=page-container-head><p>Wait Tables at The Harvard Inn</p></div>
-               <p>Take a job as a Server at the Harvard</p>
-               <p>Requires: Dishwasher Platinum Mastery </p>
-               <button class="button" type="button">Do Job</button>
-             </div>
-<br>
-             <div class=page-container>
-              <div class=page-container-head><p>Tend Bar at The Harvard Inn</p></div>
-               <p>Take a job as a Bartender at the Harvard</p>
-               <p>Requires: Sever Platinum Mastery </p>
-              <button class="button" type="button">Do Job</button>
-             </div>
-             
+		<div class="page-title">
+			<img src="{{url_for('static',filename='images/job.png')}}" width="300" height="180">
+			<h3><b>MOB JOBS</b></h3>
+		</div>
 
+		<!-- Display items(START) -->
+		{% for mission in missions.items %}
+			
+			<form method="GET" action="#">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ form.hidden_tag() }}
+				<fieldset>
+					<div class="page-container">
+						<div class="page-container-head">
+							<p>{{ mission.mission_region }}</p>
+							<img src="{{url_for('static', filename='turf_images/' + mission.mission_image) }}" width="80" height="80">
+						</div>
+						<div class="page-container-body">
+							<h6>{{ mission.mission_name }}</h6>
+              <h6>Current Stage: {{ current_user.stats.user_current_mission_stage }}</h6>
+							<h6>Energy Required: {{ mission.mission_required_energy}}</h6>
+							<h6>Earns: ${{ mission.mission_reward_min_cash }}-${{ mission.mission_reward_max_cash }}</h6>
+							<p>{{form.mission_submit(class="btn btn-outline-danger")}}</p>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+			
 
-           
-         </div>
-	</div>
-       	
+		{% endfor %}
+		<!-- Display items(END)-->
+
+	
+  </div>
 	
 {% endblock %}

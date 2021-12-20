@@ -1,8 +1,8 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from mobster import app, db, bcrypt
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm
-from mobster.models import User, Post, Item, User_Stats, Turf
+from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm, DoMissionForm
+from mobster.models import User, Post, Item, User_Stats, Turf, Missions
 from mobster.utils import save_user_img, send_reset_email, pay_users
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -305,7 +305,11 @@ def hitlist():
     
 @app.route("/missions")
 def missions():
-    return render_template('game_templates/missions.html', title='Missions')
+    page = request.args.get('page', 1, type=int)
+    missions = Missions.query.order_by(Missions.id).where(Missions.id == current_user.stats.user_current_mission_id).paginate(page=page, per_page=5)
+    #missions = Missions.query.all().paginate(page=page, per_page=5) #order_by(Missions.id).where(current_user.stats.user_current_mission_id == Missions.id)
+    form = DoMissionForm()
+    return render_template('game_templates/missions.html', title='Missions', missions=missions, form=form)
     
 @app.route("/turf")
 def turf():
