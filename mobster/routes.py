@@ -323,7 +323,7 @@ def missions():
             cash_reward = random.randint(current_mission.mission_reward_min_cash, current_mission.mission_reward_max_cash)
             xp_reward = random.randint(current_mission.mission_reward_min_xp, current_mission.mission_reward_max_xp)
             current_user.cash_on_hand += cash_reward
-            current_user.stats.user_experience += xp_reward
+            current_user.give_xp(xp_reward)
             complete_message = f"Congrats! You completed {current_mission.mission_name}! You earned ${cash_reward} and {xp_reward}xp but used {current_mission.mission_required_energy} energy!"
             db.session.commit()
             if current_user.stats.user_current_mission_stage > current_mission.mission_required_mastery:
@@ -333,7 +333,7 @@ def missions():
                 mastery_cash_reward = random.randint(current_mission.mission_mastery_reward_min_cash, current_mission.mission_mastery_reward_max_cash)
                 mastery_xp_reward = random.randint(current_mission.mission_mastery_reward_min_xp, current_mission.mission_mastery_reward_max_xp)
                 current_user.cash_on_hand += mastery_cash_reward
-                current_user.stats.user_experience += mastery_xp_reward
+                current_user.give_xp(mastery_xp_reward)
                 mastery_message = f"Congrats! You mastered {current_mission.mission_name}! You earned ${mastery_cash_reward} and {mastery_xp_reward}xp!  A new mission is now available!"
                 db.session.commit()
             if mastery_complete:
