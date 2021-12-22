@@ -1,10 +1,65 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class=page>
- <p> MY MOBSTER</p>
- <p> This page is where your personal mobster stats, comment section, and goodies shall be located </p> 
+    <div class="page-container">
+        <div>
+            <h3><b>My Mobster</b></h3>
+            <div class="page-container">
+                <div class="page-container-head">
+                    <p>{{ user.username }}</p>
+                </div>
+                <button class="button">Attack</button> | <button class="button">Punch</button> | <button class="button">Hit List</button> | <button class="button">Invite</button>
+                <div>
+                    <img class="rounded-circle" src="{{url_for('static',filename='images/' + user.image_file)}}" width="300" height="180">
+                </div>
+                <div class="page-container">
+                    <div class="page-container-head">
+                        <p>Stats</p>
+                    </div>
+                    <p>Level: {{ user.stats.user_level }}</p>
+                    <p>Minimum Bounty: ${{ '{:,}'.format(min_bounty) }}</p>
+                    <p>Missions: {{total_missions}}</p>
+                    <p>Fights Won: TODO</p>
+                    <p>Fights Lost: TODO</p>
+                    <p>Deaths: TODO</p>
+                    <p>Kills: TODO</p>
+                    <p>Bounties: TODO</p>
+                    <hr>
+                </div>
+                <div>
+                    <h1 class="mb-3">Latest posts by: {{ user.username }}</h1>
+                    <!-- Display posts -->
+                    {% for post in posts.items %}
+                        <article class="media content-section">
+                            <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.image_file) }}" alt="Article Image">
+                            <div class="media-body">
+                                <div class="article-metadata">
+                                    <a class="mr-2" href="{{ url_for('user_pages', username=post.author.username) }}">{{ post.author.username }}</a>
+                                    <small class="text-muted">{{ post.date_posted.strftime('%m-%d-%Y %H:%M:%S') }}</small>
+                                </div>
+                                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                                <p class="article-content">{{ post.content }}</p>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+                    <hr>
+                    <p>Achievments</p>
+                    <hr>
+                    <p>Armor</p>
+                    <hr>
+                    <p>Weapons</p>
+                    <hr>
+                    <p>Vehicles</p>
+                    <hr>
+                    <p>Henchmen</p>
+                    <hr>
+                    <p>Turf</p>
+                </div>
+            </div>
+        </div>
+    </div>      
 
-</div>
+    
 	
 {% endblock %}

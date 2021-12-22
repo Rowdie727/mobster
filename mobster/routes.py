@@ -458,6 +458,18 @@ def made_men():
 def my_mob():
     return render_template('game_templates/my_mob.html', title='My Mob')
     
-@app.route("/my_mobster")
-def my_mobster():
-    return render_template('game_templates/my_mobster.html', title='My Mobster')
+@app.route("/my_mobster/<username>")
+def my_mobster(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    min_bounty = user.stats.user_total_income * 10
+    latest_mission = user.stats.user_current_mission_id
+    latest_stage = user.stats.user_current_mission_stage
+    total_missions = 0
+    i = 1
+    while i < latest_mission:
+        mission = Missions.query.get(i)
+        total_missions += mission.mission_required_mastery
+        i += 1
+    total_missions += latest_stage
+    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(per_page=10)
+    return render_template('game_templates/my_mobster.html', title='My Mobster', user=user, min_bounty=min_bounty, total_missions=total_missions, posts=posts)
