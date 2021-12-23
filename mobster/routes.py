@@ -458,9 +458,9 @@ def made_men():
 def my_mob():
     return render_template('game_templates/my_mob.html', title='My Mob')
     
-@app.route("/my_mobster/<username>")
-def my_mobster(username):
-    user = User.query.filter_by(username=username).first_or_404()
+@app.route("/my_mobster/<id>")
+def my_mobster(id):
+    user = User.query.filter_by(id=id).first_or_404()
     min_bounty = user.stats.user_total_income * 10
     latest_mission = user.stats.user_current_mission_id
     latest_stage = user.stats.user_current_mission_stage
