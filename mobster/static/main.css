@@ -164,3 +164,10 @@ img {
 
 
 /* end steven */
+
+/* Modal Style */
+
+.modal-body {
+    color: rgba(0, 0, 0, 0.8);
+}
+

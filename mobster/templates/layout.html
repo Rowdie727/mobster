@@ -75,7 +75,7 @@
         </header>
 
         <!-- Main Container -->
-        <main role="main" class="container">
+        <main role="main" class="container main-container">
             <div class="row">
                 <!-- Right Menu -->
                 <div class="col-md-4">
@@ -122,8 +122,12 @@
                     {% block body %}{% endblock %}
                 </div>
 
+                
+
         <!-- Custom JavaScript -->     
-        <script src="{{ url_for('static', filename='timers.js') }}"></script>   
+        <script src="{{ url_for('static', filename='timers.js') }}"></script>
+        <script src="{{ url_for('static', filename='buttons.js') }}"></script> 
+           
        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

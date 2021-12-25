@@ -23,18 +23,18 @@
 
 		<legend>Patient List</legend>
 		{% for user in users.items %}
-			{% if user.stats.user_in_icu == True %}
-				<form method="POST" action="hospital/punch/{{user.id}}">
-					<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
-					{{ form.hidden_tag() }}
-					<fieldset>
-						<b><span style="color: #0081AB">Name:</span> <span style="color: #FFDB00">{{ user.username }}</span> <span style="color: #FFFFFF">HP: {{ user.stats.user_current_health }} / {{ user.stats.user_max_health }}<span></span></b>
-			
-						{{ form.punch_submit(class="btn btn-outline-danger") }}
-						<hr>
-					</fieldset>
-				</form>
-			{% endif %}
+
+			<form method="POST" action="hospital/punch/{{user.id}}">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ form.hidden_tag() }}
+				<fieldset>
+					<b><span style="color: #0081AB">Name:</span> <a href="{{ url_for('my_mobster', id=user.id) }}"><span style="color: #FFDB00">{{ user.username }}</span></a> <span style="color: #FFFFFF">HP: {{ user.stats.user_current_health }} / {{ user.stats.user_max_health }}<span></span></b>
+		
+					{{ form.punch_submit(class="btn btn-outline-danger") }}
+					<hr>
+				</fieldset>
+			</form>
+	
 
 		{% endfor %}
 		<!-- Display items(END)-->

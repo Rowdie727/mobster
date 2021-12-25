@@ -2,7 +2,7 @@ import os
 import random
 from flask import render_template, url_for, flash, redirect, request, abort, jsonify
 from mobster import app, db, bcrypt
-from mobster.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm, DoMissionForm
+from mobster.forms import InviteForm, RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, BankDepositForm, BankWithdrawForm, EquipmentBuyForm, HospitalForm, TurfBuyForm, DoMissionForm, AttackForm, HitListForm, InviteForm
 from mobster.models import User, Post, Item, User_Stats, Turf, Missions
 from mobster.utils import save_user_img, send_reset_email, pay_users
 from flask_login import login_user, logout_user, current_user, login_required
@@ -305,8 +305,35 @@ def godfather():
     
 @app.route("/hitlist")
 def hitlist():
-    return render_template('game_templates/hitlist.html', title='Hitlist')
-    
+    form = HospitalForm()
+    page = request.args.get('page', 1, type=int)
+    users = User.query.order_by(User.id.desc()).where(User_Stats.user_on_hitlist == True).outerjoin(User_Stats).paginate(page=page, per_page=10)
+    return render_template('game_templates/hitlist.html', title='Hitlist', form=form, users=users)
+
+@app.route("/hitlist/add/<user_id>", methods=['POST'])
+def add_to_hitlist(user_id):
+    form = HitListForm()
+    if request.method == 'POST' and form.validate_on_submit:
+        user = User.query.get(user_id)
+        if form.bounty.data >= user.stats.user_total_income * 10:
+            if current_user.cash_on_hand < form.bounty.data:
+                flash(f'You don\'t have {form.bounty.data} to add {user.username} to the hitlist!', 'danger')
+                return redirect(url_for('my_mobster', id=user.id))
+            else:
+                if user.stats.user_on_hitlist:
+                    flash(f'{user.username} is already on the hitlist!', 'danger')
+                    return redirect(url_for('my_mobster', id=user.id))
+                else:
+                    current_user.cash_on_hand -= form.bounty.data
+                    user.stats.user_on_hitlist = True
+                    user.stats.user_current_bounty = form.bounty.data
+                    post = Post(user_id=current_user.id, title=f"New Target!", content=f"{current_user.username} just put a bounty of {form.bounty.data} on {user.username}'s head!")
+                    db.session.add(post)
+                    db.session.commit()
+                    flash(f"You just put a bounty of {form.bounty.data} on {user.username}'s head!", 'danger')
+                    return redirect(url_for('hitlist'))
+    return redirect('my_mobster/', id=current_user.id)
+
 @app.route("/missions", methods=['GET', 'POST'])
 @login_required
 def missions():
@@ -423,7 +450,7 @@ def hospital():
     user = User.query.get_or_404(current_user.id)
     form = HospitalForm()
     page = request.args.get('page', 1, type=int)
-    users = User.query.order_by(User.id).paginate(page=page, per_page=10)
+    users = User.query.order_by(User.id.desc()).where(User_Stats.user_in_icu == True).outerjoin(User_Stats).paginate(page=page, per_page=10)
     if user.cash_on_hand >= 500 and form.validate_on_submit():
         if form.heal_submit.data:
             if user.stats.user_current_health == user.stats.user_max_health:
@@ -444,10 +471,20 @@ def hospital_punch(id):
         post = Post(user_id=current_user.id, title=f"{current_user.username} just punched {user.username}!", content=f"{user.username} just got rocked for 10hp!")
         db.session.add(post)
         db.session.commit()
+        flash(f'You just rocked {user.username} for 10hp!', 'danger')
+        if user.stats.user_on_hitlist and user.stats.user_current_health == 0:
+            bounty = '{:,}'.format(user.stats.user_current_bounty)
+            flash(f'You have killed {user.username} and have collected a bounty of $ {bounty}', 'danger')
+            current_user.cash_on_hand += user.stats.user_current_bounty
+            post = Post(user_id=current_user.id, title=f"Target Eliminated", content=f"{current_user.username} ended {user.username} and collected their bounty of ${bounty}!")
+            user.stats.user_on_hitlist = False
+            user.stats.user_current_bounty = 0
+            db.session.add(post)
+            db.session.commit()
     else:
         flash('Chill man  he\'s dead already!', 'danger')
         db.session.commit()
-    return redirect(url_for('hospital'))
+    return redirect(url_for('my_mobster', id=id))
     
     
 @app.route("/made_men")
@@ -472,4 +509,8 @@ def my_mobster(id):
         i += 1
     total_missions += latest_stage
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(per_page=10)
-    return render_template('game_templates/my_mobster.html', title='My Mobster', user=user, min_bounty=min_bounty, total_missions=total_missions, posts=posts)
+    form = HospitalForm()
+    hitlist_form = HitListForm()
+    attack_form = AttackForm()
+    invite_form = InviteForm()
+    return render_template('game_templates/my_mobster.html', title='My Mobster', form=form, hitlist_form=hitlist_form, attack_form=attack_form, invite_form=invite_form, user=user, min_bounty=min_bounty, total_missions=total_missions, posts=posts)

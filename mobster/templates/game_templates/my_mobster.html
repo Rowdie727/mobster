@@ -8,7 +8,12 @@
                 <div class="page-container-head">
                     <p>{{ user.username }}</p>
                 </div>
-                <button class="button">Attack</button> | <button class="button">Punch</button> | <button class="button">Hit List</button> | <button class="button">Invite</button>
+                <div>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#attackModal">Attack</button>
+                     | <form style="display:inline;" method="post" action="../hospital/punch/{{user.id}}">{{ form.punch_submit(class="btn btn-outline-danger") }}</form>
+                      | <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#hitlistModal">Hitlist</button>
+                       | <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#inviteModal">Invite</button>
+                </div>
                 <div>
                     <img class="rounded-circle" src="{{url_for('static',filename='images/' + user.image_file)}}" width="300" height="180">
                 </div>
@@ -17,6 +22,7 @@
                         <p>Stats</p>
                     </div>
                     <p>Level: {{ user.stats.user_level }}</p>
+                    <p>HP:<span id="current_health">{{ user.stats.user_current_health }}</span>/<span id="max_health">{{ user.stats.user_max_health }}</span></p>
                     <p>Minimum Bounty: ${{ '{:,}'.format(min_bounty) }}</p>
                     <p>Missions: {{total_missions}}</p>
                     <p>Fights Won: TODO</p>
@@ -60,6 +66,78 @@
         </div>
     </div>      
 
+    <!-- Bootstrap Modals -->
+    <!-- Attack Modal -->
+    <div class="modal fade" id="attackModal" tabindex="-1" role="dialog" aria-labelledby="attackModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attackModalLabel">Attack</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#" method="POST"></form>
+                <div class="modal-body">
+                    <p>TODO!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{attack_form.attack_submit(class="btn btn-outline-danger")}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hitlist Modal -->
+    <div class="modal fade" id="hitlistModal" tabindex="-1" role="dialog" aria-labelledby="hitlistModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}">                   
+                    <h2 class="modal-title" id="hitlistModalLabel">{{user.username}}</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{url_for('add_to_hitlist', user_id=user.id)}}" method="POST">
+                <div class="modal-body">
+                    <p>{{user.username}}'s minimum bounty is ${{ '{:,}'.format(user.stats.user_total_income * 10)}}</p>
+                    <p>{{hitlist_form.bounty.label(class="form-control-label") }}:</p>
+                    <p>{{hitlist_form.bounty(class="form-control form-control-md", value=user.stats.user_total_income * 10) }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{hitlist_form.hitlist_submit(class="btn btn-outline-danger")}}
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invite Modal -->
+    <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inviteModalLabel">Invite</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#" method="POST">
+                <div class="modal-body">
+                    <p>TODO!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{invite_form.invite_submit(class="btn btn-outline-danger")}}
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
 	
 {% endblock %}

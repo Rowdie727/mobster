@@ -56,3 +56,7 @@ function updateElement(match) {
         }
     })
 }
+
+function test() {
+    alert('Testing!')
+}

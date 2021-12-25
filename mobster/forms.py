@@ -112,3 +112,13 @@ class TurfBuyForm(FlaskForm):
 
 class DoMissionForm(FlaskForm):
     mission_submit = SubmitField('Do Job')
+
+class AttackForm(FlaskForm):
+    attack_submit = SubmitField('Attack')
+
+class HitListForm(FlaskForm):
+    bounty = IntegerField('Set Bounty', validators=[NumberRange(min=1)])
+    hitlist_submit = SubmitField('Add to Hitlist')
+
+class InviteForm(FlaskForm):
+    invite_submit = SubmitField('Invite')

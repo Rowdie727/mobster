@@ -72,4 +72,11 @@ def background_thread():
                 stamina_thread.daemon = True
                 if not stamina_thread.is_alive():
                     stamina_thread.start()
+            # In ICU?
+            if user.stats.user_current_health < 30 and user.stats.user_in_icu == False:
+                user.stats.user_in_icu = True
+                db.session.commit()
+            if user.stats.user_current_health > 30 and user.stats.user_in_icu == True:
+                user.stats.user_in_icu = False
+                db.session.commit()
                 

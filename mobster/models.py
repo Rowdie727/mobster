@@ -110,7 +110,7 @@ class User(db.Model, UserMixin):
     def get_punched(self):
         if self.stats.user_current_health - 10 < 0:
             self.stats.user_current_health = 0
-            return False
+            return True
         else:
             self.stats.user_current_health -= 10
             return True
@@ -176,6 +176,8 @@ class User_Stats(db.Model):
     user_total_income = db.Column(db.Integer, default=0)
     user_current_mission_id = db.Column(db.Integer, default=1)
     user_current_mission_stage = db.Column(db.Integer, default=1)
+    user_on_hitlist = db.Column(db.Boolean, default=False)
+    user_current_bounty = db.Column(db.Integer, default=0)
     experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     

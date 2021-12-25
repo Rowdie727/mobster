@@ -1,8 +1,57 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<div class=page>
-		<p>HITLIST PAGE</p>
+<div class="page-container">
+    <div>
+        <img src="{{url_for('static',filename='images/bank.jpg')}}" width="300" height="180">
 	</div>
+
+    <div>
+		<h3><b>Hit List</b></h3>
+	</div>
+      		
+    <div class="page-container">
+        <div class="page-container-head">
+			<p>Attack enemies to collect bounties!</p>
+			<p>Deal the final blow to someone and collect their bounty!</p>
+        </div>
+        <form action="#" method="POST">
+			<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+			{{ form.hidden_tag() }}
+		</form>
+
+		<legend>Targets</legend>
+		{% for user in users.items %}
+
+			<form method="POST" action="../hospital/punch/{{user.id}}">
+				<!-- hidden_tag() adds CSRF token to prevent XSS attacks -->
+				{{ form.hidden_tag() }}
+				<fieldset>
+					<b><span style="color: #0081AB">Name:</span> <a href="{{ url_for('my_mobster', id=user.id) }}"><span style="color: #FFDB00">{{ user.username }}</span> <span style="color: #058f33">HP: {{ user.stats.user_current_health }}/{{ user.stats.user_max_health }}</span> </a><span style="color: #FFFFFF">Bounty: ${{'{:,}'.format(user.stats.user_current_bounty)}}<span></span></b>
+		
+					{{ form.punch_submit(class="btn btn-outline-danger") }}
+					<hr>
+				</fieldset>
+			</form>
+	
+
+		{% endfor %}
+		<!-- Display items(END)-->
+      	</div>
+    </div>
+	<!-- Display page numbers(START) -->
+	{% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+		{% if page_num and users.next %}
+		  	{% if users.page == page_num %}
+			  	<a class="btn btn-danger mb-4" href="{{ url_for('hitlist', page=page_num) }}">{{ page_num }}</a>
+		  	{% else %}
+			  	<a class="btn btn-outline-danger mb-4" href="{{ url_for('hitlist', page=page_num) }}">{{ page_num }}</a>
+			{% endif %}
+		{% else %}  
+		  	...
+		{% endif %}
+	{% endfor %}
+<!-- Display page numbers(END)-->
+</div>	
 	
 {% endblock %}
