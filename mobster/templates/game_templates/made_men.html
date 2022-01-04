@@ -1,10 +1,177 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class=page>
- <p> MADE MEN</p>
- <p> This page is where the best of the best and worst of the worst shall be displayed </p> 
- <p> all time, lvl, stats </p>
-</div>
+	<div class="page-container">
+
+		<div class="page-title">
+			<img src="{{url_for('static',filename='images/goldstrike.jpg')}}" alt="goldstrike.jpg" width="300" height="180">
+			<h3><b>Made Men</b></h3>
+            <div>
+                <button type="button" class="btn btn-outline-danger made-men-btn" data-page="highest-level-page">Highest Level</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="highest-bounty-page">Highest Bounty</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="most-missions-page">Most Missions</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="fights-won-page">Fights Won</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="fights-lost-page">Fights Lost</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="most-deaths-page">Most Deaths</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="most-kills-page">Most Kills</button>
+                 | <button type="button" class="btn btn-outline-danger made-men-btn" data-page="most-bounties-page">Most Collected Bounties</button><br>
+            </div>
+            
+                
+		</div>
+
+		<!-- Highest Level Page(START) -->
+        <div id="highest-level-page" class="page-section">
+            <div class="page-container-head">
+                <p>Highest Level</p>  
+            </div>
+            {% for user in highest_level.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Level: {{ user.stats.user_level }}</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Highest Level Page(END)-->
+
+        <!-- Highest Bounty Page(START) -->
+        <div id="highest-bounty-page" class="page-section">
+            <div class="page-container-head">
+                <p>Highest Bounty</p>  
+            </div>
+            {% for user in highest_bounty.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Minimum Bounty: {{ user.min_bounty() }}</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Highest Bounty Page(END)-->
+
+        <!-- Most Missions Page(START) -->
+        <div id="most-missions-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Missions</p>  
+            </div>
+            {% for user in most_missions.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Missions Complete: {{ user.stats.user_total_missions_complete }}</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Missions Page(END)-->
+		
+        <!-- Most Fights Won Page(START) -->
+        <div id="fights-won-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Fights Won</p>  
+            </div>
+            {% for user in fights_won.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Fights Won: 0</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Fights Won Page(END)-->
+
+        <!-- Most Fights Lost Page(START) -->
+        <div id="fights-lost-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Fights Lost</p>  
+            </div>
+            {% for user in fights_lost.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Fights Lost: 0</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Fights Lost Page(END)-->
+
+        <!-- Most Deaths Page(START) -->
+        <div id="most-deaths-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Deaths</p>  
+            </div>
+            {% for user in most_deaths.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Most Deaths: 0</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Deaths Page(END)-->
+
+        <!-- Most Kills Page(START) -->
+        <div id="most-kills-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Kills</p>  
+            </div>
+            {% for user in most_kills.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Most Kills: 0</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Kills Page(END)-->
+
+        <!-- Most Collected Bounties Page(START) -->
+        <div id="most-bounties-page" class="page-section">
+            <div class="page-container-head">
+                <p>Most Bounties Collected</p>  
+            </div>
+            {% for user in bounties_collected.items %}
+                <div class="page-container">
+                    <article class="media content-section">
+                        <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
+                        <div class="media-body">
+                            <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
+                            <p class="article-content">Bounties Collected: {{ user.stats.user_total_bounty_collected }}</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+		<!-- Most Collected Bounties Page(END)-->
+    </div>
+	
 	
 {% endblock %}

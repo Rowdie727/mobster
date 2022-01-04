@@ -119,6 +119,10 @@ class User(db.Model, UserMixin):
         if self.stats.user_in_icu == True:
             return True
         return False
+
+    def min_bounty(self):
+        return self.stats.user_total_income * 10
+
             
 
 class Post(db.Model):
@@ -176,8 +180,10 @@ class User_Stats(db.Model):
     user_total_income = db.Column(db.Integer, default=0)
     user_current_mission_id = db.Column(db.Integer, default=1)
     user_current_mission_stage = db.Column(db.Integer, default=1)
+    user_total_missions_complete = db.Column(db.Integer, default=0)
     user_on_hitlist = db.Column(db.Boolean, default=False)
     user_current_bounty = db.Column(db.Integer, default=0)
+    user_total_bounty_collected = db.Column(db.Integer, default=0)
     experience_to_level_up = db.Column(db.Integer, nullable=False, default=100)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     

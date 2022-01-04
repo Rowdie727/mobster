@@ -24,7 +24,7 @@
                     <p>Level: {{ user.stats.user_level }}</p>
                     <p>HP:<span id="current_health">{{ user.stats.user_current_health }}</span>/<span id="max_health">{{ user.stats.user_max_health }}</span></p>
                     <p>Minimum Bounty: ${{ '{:,}'.format(min_bounty) }}</p>
-                    <p>Missions: {{total_missions}}</p>
+                    <p>Missions: {{user.stats.user_total_missions_complete}}</p>
                     <p>Fights Won: TODO</p>
                     <p>Fights Lost: TODO</p>
                     <p>Deaths: TODO</p>

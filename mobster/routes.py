@@ -347,6 +347,7 @@ def missions():
             mastery_complete = False
             current_user.stats.user_current_energy -= current_mission.mission_required_energy
             current_user.stats.user_current_mission_stage += 1
+            current_user.stats.user_total_missions_complete += 1
             cash_reward = random.randint(current_mission.mission_reward_min_cash, current_mission.mission_reward_max_cash)
             xp_reward = random.randint(current_mission.mission_reward_min_xp, current_mission.mission_reward_max_xp)
             current_user.cash_on_hand += cash_reward
@@ -478,6 +479,7 @@ def hospital_punch(id):
             current_user.cash_on_hand += user.stats.user_current_bounty
             post = Post(user_id=current_user.id, title=f"Target Eliminated", content=f"{current_user.username} ended {user.username} and collected their bounty of ${bounty}!")
             user.stats.user_on_hitlist = False
+            current_user.stats.user_total_bounty_collected += bounty
             user.stats.user_current_bounty = 0
             db.session.add(post)
             db.session.commit()
@@ -489,7 +491,17 @@ def hospital_punch(id):
     
 @app.route("/made_men")
 def made_men():
-    return render_template('game_templates/made_men.html', title='Made Men')
+    page = request.args.get('page', 1, type=int)
+    highest_level = User.query.order_by(User_Stats.user_level.desc()).outerjoin(User_Stats).paginate(page=page, per_page=100)
+    highest_bounty = User.query.order_by(User_Stats.user_total_income.desc()).outerjoin(User_Stats).paginate(page=page, per_page=100)
+    most_missions = User.query.order_by(User_Stats.user_total_missions_complete.desc()).outerjoin(User_Stats).paginate(page=page, per_page=100)
+    fights_won = User.query.order_by(User.id).paginate(page=page, per_page=100)
+    fights_lost = User.query.order_by(User.id).paginate(page=page, per_page=100)
+    most_deaths = User.query.order_by(User.id).paginate(page=page, per_page=100)
+    most_kills = User.query.order_by(User.id).paginate(page=page, per_page=100)
+    bounties_collected = User.query.order_by(User_Stats.user_total_bounty_collected.desc()).outerjoin(User_Stats).paginate(page=page, per_page=100)
+    
+    return render_template('game_templates/made_men.html', title='Made Men', highest_level=highest_level, highest_bounty=highest_bounty, most_missions=most_missions, fights_won=fights_won, fights_lost=fights_lost, most_deaths=most_deaths, most_kills=most_kills,bounties_collected=bounties_collected)
 
 @app.route("/my_mob")
 def my_mob():
@@ -499,18 +511,9 @@ def my_mob():
 def my_mobster(id):
     user = User.query.filter_by(id=id).first_or_404()
     min_bounty = user.stats.user_total_income * 10
-    latest_mission = user.stats.user_current_mission_id
-    latest_stage = user.stats.user_current_mission_stage
-    total_missions = 0
-    i = 1
-    while i < latest_mission:
-        mission = Missions.query.get(i)
-        total_missions += mission.mission_required_mastery
-        i += 1
-    total_missions += latest_stage
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(per_page=10)
     form = HospitalForm()
     hitlist_form = HitListForm()
     attack_form = AttackForm()
     invite_form = InviteForm()
-    return render_template('game_templates/my_mobster.html', title='My Mobster', form=form, hitlist_form=hitlist_form, attack_form=attack_form, invite_form=invite_form, user=user, min_bounty=min_bounty, total_missions=total_missions, posts=posts)
+    return render_template('game_templates/my_mobster.html', title='My Mobster', form=form, hitlist_form=hitlist_form, attack_form=attack_form, invite_form=invite_form, user=user, min_bounty=min_bounty, posts=posts)
