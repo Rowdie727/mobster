@@ -3,7 +3,7 @@
         {
             "mission_region": "Sea Side Walk",
             "mission_name": "Wash Dishes At The Harvard",
-            "mission_image": "default.jpg",
+            "mission_image": "harvard.png",
             "mission_tier": "Bronze",
             "mission_required_mastery": 10,
             "mission_required_energy": 1,
@@ -29,7 +29,7 @@
         {
             "mission_region": "Sea Side Walk",
             "mission_name": "Wait Tables At The Harvard",
-            "mission_image": "default.jpg",
+            "mission_image": "harvard.png",
             "mission_tier": "Silver",
             "mission_required_mastery": 15,
             "mission_required_energy": 2,
@@ -55,7 +55,7 @@
         {
             "mission_region": "Sea Side Walk",
             "mission_name": "Tend Bar At The Harvard",
-            "mission_image": "default.jpg",
+            "mission_image": "harvard.png",
             "mission_tier": "Gold",
             "mission_required_mastery": 25,
             "mission_required_energy": 3,
@@ -81,7 +81,7 @@
         {
             "mission_region": "Sea Side Walk",
             "mission_name": "Bouncer At The Harvard",
-            "mission_image": "default.jpg",
+            "mission_image": "harvard.png",
             "mission_tier": "Platinum",
             "mission_required_mastery": 50,
             "mission_required_energy": 5,
@@ -107,7 +107,7 @@
         {
             "mission_region": "Highland Town",
             "mission_name": "Move To Baltimore",
-            "mission_image": "default.jpg",
+            "mission_image": "aiello.png",
             "mission_tier": "Bronze",
             "mission_required_mastery": 15,
             "mission_required_energy": 5,
@@ -133,7 +133,7 @@
         {
             "mission_region": "Highland Town",
             "mission_name": "Become Office Clerk For Aiello Construction",
-            "mission_image": "default.jpg",
+            "mission_image": "aiello.png",
             "mission_tier": "Silver",
             "mission_required_mastery": 25,
             "mission_required_energy": 7,
@@ -159,7 +159,7 @@
         {
             "mission_region": "Highland Town",
             "mission_name": "Become Bookkeeper For Aiello Construction",
-            "mission_image": "default.jpg",
+            "mission_image": "aiello.png",
             "mission_tier": "Gold",
             "mission_required_mastery": 50,
             "mission_required_energy": 10,
@@ -185,7 +185,7 @@
         {
             "mission_region": "Highland Town",
             "mission_name": "Attend A Meeting With Johnny",
-            "mission_image": "default.jpg",
+            "mission_image": "aiello.png",
             "mission_tier": "Platinum",
             "mission_required_mastery": 75,
             "mission_required_energy": 15,

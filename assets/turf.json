@@ -1,7 +1,7 @@
 {
     "turf": [
         {
-            "turf_name": "hot dog cart",
+            "turf_name": "Hot Dog Cart",
             "turf_image": "hotdog.png",
             "turf_cost": 2500,
             "turf_sell": 1250,
@@ -10,96 +10,84 @@
         },
 
         {
-            
-            "turf_name": "newsstand",
+            "turf_name": "News Stand",
             "turf_image": "news.png",
             "turf_cost": 5000,
             "turf_sell": 2500,
             "turf_income": 250,
-            "level_required": 1
+            "level_required": 5
         },
 
         {
-            
-            "turf_name": "pawn shop",
+            "turf_name": "Pawn Shop",
             "turf_image": "pawn.png",
             "turf_cost": 10000,
             "turf_sell": 5000,
             "turf_income": 1000,
-            "level_required": 5
+            "level_required": 10
         },
 
         {
-            
-            "turf_name": "still",
+            "turf_name": "Still",
             "turf_image": "still.png",
             "turf_cost": 50000,
             "turf_sell": 25000,
             "turf_income": 5000,
-            "level_required": 5
+            "level_required": 15
         },
 
         {
-            
-            "turf_name": "brothel",
+            "turf_name": "Brothel",
             "turf_image": "brothel.png",
             "turf_cost": 100000,
             "turf_sell": 50000,
             "turf_income": 10000,
-            "level_required": 10
-        },
-
-        {
-            
-            "turf_name": "roadhouse",
-            "turf_image": "road.png",
-            "turf_cost": 500000,
-            "turf_sell": 250000,
-            "turf_income": 20000,
-            "level_required": 10
-        },
-
-        {
-            
-            "turf_name": "speakeasie",
-            "turf_image": "speak.png",
-            "turf_cost": 800000,
-            "turf_sell": 400000,
-            "turf_income": 40000,
-            "level_required": 15
-        },
-
-        {
-            
-            "turf_name": "carpet joint",
-            "turf_image": "carpet.png",
-            "turf_cost": 1000000,
-            "turf_sell": 500000,
-            "turf_income": 50000,
-            "level_required": 15
-        },
-
-        {
-            
-            "turf_name": "pizza joint",
-            "turf_image": "pizza.png",
-            "turf_cost": 1000000,
-            "turf_sell": 500000,
-            "turf_income": 75000,
             "level_required": 25
         },
 
         {
-            
-            "turf_name": "steak house",
+            "turf_name": "Roadhouse",
+            "turf_image": "road.png",
+            "turf_cost": 500000,
+            "turf_sell": 250000,
+            "turf_income": 20000,
+            "level_required": 50
+        },
+
+        {
+            "turf_name": "Speakeasie",
+            "turf_image": "speak.png",
+            "turf_cost": 800000,
+            "turf_sell": 400000,
+            "turf_income": 40000,
+            "level_required": 60
+        },
+
+        {
+            "turf_name": "Carpet Joint",
+            "turf_image": "carpet.png",
+            "turf_cost": 1000000,
+            "turf_sell": 500000,
+            "turf_income": 50000,
+            "level_required": 70
+        },
+
+        {
+            "turf_name": "Pizza Joint",
+            "turf_image": "pizza.png",
+            "turf_cost": 1000000,
+            "turf_sell": 500000,
+            "turf_income": 75000,
+            "level_required": 80
+        },
+
+        {
+            "turf_name": "Steak House",
             "turf_image": "steak.png",
             "turf_cost": 1500000,
             "turf_sell": 750000,
             "turf_income": 85000,
-            "level_required": 40
+            "level_required": 90
         }
-
-
-
     ]
 }

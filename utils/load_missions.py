@@ -11,7 +11,7 @@ with open('missions.json') as mission_file:
     # Loop over missions
     for mission in missions['missions']:
         # Create mission object from data
-        mission_obj = Missions(
+        '''mission_obj = Missions(
             mission_region=mission['mission_region'],
             mission_name=mission['mission_name'],
             mission_image=mission['mission_image'],
@@ -36,17 +36,17 @@ with open('missions.json') as mission_file:
             mission_mastery_reward_mobc=mission['mission_mastery_reward_mobc'],
             mission_mastery_reward_item_id=mission['mission_mastery_reward_item_id'],
             mission_mastery_reward_turf_id=mission['mission_mastery_reward_turf_id']
-            )
+            )'''
 
         # Query database for mission of the same name
-        # dbmission = Mission.query.filter_by(mission_name=mission['mission_name']).first()
+        dbmission = Missions.query.filter_by(mission_name=mission['mission_name']).first()
         
         # If item exists in db update it, otherwise add it
-        #if mission['mission_name'] == dbmission.mission_name:
-            #dbmission.mission_image = mission['mission_image']
+        if mission['mission_name'] == dbmission.mission_name:
+            dbmission.mission_image = mission['mission_image']
             
         #else:
-        db.session.add(mission_obj)  
+        #db.session.add(mission_obj)  
             
         
     # Commit changes 
