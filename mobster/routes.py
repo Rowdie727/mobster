@@ -475,11 +475,12 @@ def hospital_punch(id):
         flash(f'You just rocked {user.username} for 10hp!', 'danger')
         if user.stats.user_on_hitlist and user.stats.user_current_health == 0:
             bounty = '{:,}'.format(user.stats.user_current_bounty)
+            bounty_int = user.stats.user_current_bounty
             flash(f'You have killed {user.username} and have collected a bounty of $ {bounty}', 'danger')
             current_user.cash_on_hand += user.stats.user_current_bounty
             post = Post(user_id=current_user.id, title=f"Target Eliminated", content=f"{current_user.username} ended {user.username} and collected their bounty of ${bounty}!")
             user.stats.user_on_hitlist = False
-            current_user.stats.user_total_bounty_collected += bounty
+            current_user.stats.user_total_bounty_collected += bounty_int
             user.stats.user_current_bounty = 0
             db.session.add(post)
             db.session.commit()

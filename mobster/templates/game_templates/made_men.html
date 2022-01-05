@@ -50,7 +50,7 @@
                         <img class="rounded-circle article-img" src="{{url_for('static',filename='images/' + user.image_file)}}" alt="User Image">
                         <div class="media-body">
                             <h2><a class="article-title" href="{{ url_for('my_mobster', id=user.id) }}">{{ user.username }}</a></h2>
-                            <p class="article-content">Minimum Bounty: {{ user.min_bounty() }}</p>
+                            <p class="article-content">Minimum Bounty: ${{ '{:,}'.format(user.min_bounty()) }}</p>
                         </div>
                     </article>
                 </div>
